@@ -1,0 +1,58 @@
+feats_to_use_from_file: ['activity_details', 'audio_details', 'call_log_details', 'conversation_details', 'dark_details','gps_details', 'phonecharge_details', 'phonelock_details', 'sleep_details', 'sms_details']
+activity_details:
+    simple: ['sum', 'mean', 'std', 'median', 'var', 'skew']
+    linear: True
+    kurtosis: True
+    poly: True
+    iqr: True
+    mcr: True
+    fft: True
+audio_details:
+    simple: ['sum', 'mean', 'std', 'median', 'var', 'skew']
+    linear: True
+    kurtosis: True
+    poly: True
+    iqr: True
+    mcr: True
+    fft: True
+call_log_details:
+    simple: ['sum']
+conversation_details:
+    simple: ['sum', 'mean', 'std', 'median', 'var', 'skew']
+    linear: True
+    kurtosis: True
+    poly: True
+    iqr: True
+    mcr: True
+    fft: True
+dark_details:
+    simple: ['sum', 'mean', 'std', 'median', 'var', 'skew']
+    linear: True
+    kurtosis: True
+    poly: True
+    iqr: True
+    mcr: True
+    fft: True
+dow: True
+gps_details:
+    simple: ['mean', 'min', 'max']
+phonecharge_details:
+    simple: ['sum', 'mean', 'std', 'median', 'var', 'skew']
+    linear: True
+    kurtosis: True
+    poly: True
+    iqr: True
+    mcr: True
+    fft: True
+phonelock_details:
+    simple: ['sum', 'mean', 'std', 'median', 'var', 'skew']
+    linear: True
+    kurtosis: True
+    poly: True
+    iqr: True
+    mcr: True
+    fft: True
+sleep_details:
+    simple: ['sum', 'mean', 'min', 'max']
+sms_details:
+    simple: ['sum']
