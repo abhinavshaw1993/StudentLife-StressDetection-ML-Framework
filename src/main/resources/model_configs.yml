@@ -1,0 +1,3 @@
+RandomForest:
+  classifier__n_estimators: [5, 10, 20, 30, 50]
+  classifier__max_features: [5, 10, 15, 20 , 30]

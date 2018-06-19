@@ -2,4 +2,4 @@ agg_window: 'd'
 splitter: 'predefined'
 transformer_type: 'minmax'
 stress_agg: 'min'
-ml_model: 'LogRegression'
+ml_models: ['LogisticRegression', 'RandomForest', ]

@@ -1,4 +1,10 @@
 from abc import ABCMeta, abstractmethod
+import sys
+import os
+import yaml
+import sklearn.linear_model as linear_model
+import sklearn.ensemble as ensemble
+import sklearn.svm as svm
 
 
 class ExperimentBase:
@@ -9,36 +15,62 @@ class ExperimentBase:
     splitter = str()
     transformer = str()
     stress_agg = str()
-    ml_model = str()
+    ml_models = str()
 
     def __init__(self):
         """
         Initialize the different properties for the experiment.
-        :parameter ml_models: a dictionary of different models to be tried out for the pipeline.
-        :parameter transformer: string, for which transformer to be used eg: minmax, normalizer etc. Default - standard.
-        :parameter train_test_split: Splitting technique, leave k, standart train test split our etc.
         """
         self.read_configs()
         self.set_configs()
 
-
     @abstractmethod
-    def run_experiment(self):
+    def run_experiment(self, verbose=False):
         """
         To run te experiments.
         """
         pass
 
-    @abstractmethod
-    def read_configs(self):
+    @staticmethod
+    def get_model_configurations():
         """
-        To read the configs of the experiment.
+        Returns Dictionary of hyperparameters.
         """
-        pass
+        root = os.path.dirname(sys.modules['__main__'].__file__)
+        file_name = root + "/resources/model_configs.yml"
+        # Reading from YML file.
+        with open(file_name, "r") as ymlfile:
+            model_configs = yaml.load(ymlfile)
 
-    @abstractmethod
+        return model_configs
+
+    # Non Abstract Methods
+
+    def get_ml_models(self):
+        model_list = []
+
+        if "LogisticRegression" in self.ml_models:
+            model_list.append(linear_model.LogisticRegression())
+        if "RandomForest" in self.ml_models:
+            model_list.append(ensemble.RandomForestClassifier())
+        if "SVM" in self.ml_models:
+            model_list.append(svm.SVC())
+
+        if len(model_list) == 0:
+            raise Exception("Model Config Not Found!! Check Model config for Experiment.")
+
+        return model_list
+
+    def read_configs(self):
+        root = os.path.dirname(sys.modules['__main__'].__file__)
+        file_name = root + "/resources/generalized_global_classifier.yml"
+        # Reading from YML file.
+        with open(file_name, "r") as ymlfile:
+            self.exp_config = yaml.load(ymlfile)
+
     def set_configs(self):
-        """
-        To Set the configs of the experiment.
-        """
-        pass
+        self.agg_window = self.exp_config['agg_window']
+        self.splitter = self.exp_config['splitter']
+        self.transformer = self.exp_config['transformer_type']
+        self.stress_agg = self.exp_config['stress_agg']
+        self.ml_models = self.exp_config['ml_models']

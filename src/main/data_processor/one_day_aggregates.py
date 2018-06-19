@@ -28,7 +28,7 @@ freq = 'd'
 # Skipping Student 0, because of bad data.
 print("dir list: ", dir_list)
 
-dir_list = dir_list[:2]
+dir_list = dir_list[30:]
 
 print("DirList that will be precessed: ", dir_list)
 converter_dict = {'time': pd.to_datetime}

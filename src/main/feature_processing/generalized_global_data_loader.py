@@ -29,9 +29,13 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
                                         index_col=0,
                                         header=[0, 1])
 
-                self.train_data = self.train_data.append(temp_data[:'2013-04-30'])
-                self.val_data = self.val_data.append(temp_data['2013-05-01':'2013-05-07'])
-                self.test_data = self.test_data.append(temp_data['2013-05-08':])
+                # self.train_data = self.train_data.append(temp_data[:'2013-04-30'])
+                # self.val_data = self.val_data.append(temp_data['2013-05-01':'2013-05-07'])
+                # self.test_data = self.test_data.append(temp_data['2013-05-08':])
+
+                self.train_data = self.train_data.append(temp_data[:'2013-05-12'])
+                self.val_data = self.val_data.append(temp_data['2013-05-12':'2013-05-15'])
+                self.test_data = self.test_data.append(temp_data['2013-05-16':])
 
         # Now that the data has been read let us produce test train split, since it is global generalized we
         self.train_data["set"] = "training_set"
@@ -68,7 +72,7 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
                                                                                    len(self.val_data),
                                                                                    len(self.test_data)))
             print("train_data indices:\n", self.train_data.index.value_counts())
-            print("Is NaN", self.rain_data.isnull().any(axis=1).any())
+            print("Is NaN", self.train_data.isnull().any(axis=1).any())
             # print("val_data indices:\n", self.val_data.index.value_counts())
             # print("test_data indices:\n", self.test_data.index.value_counts())
             print(self.train_indices)
