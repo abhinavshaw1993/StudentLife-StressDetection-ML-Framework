@@ -1,2 +1,8 @@
 
 \.idea/
+
+src/main/data/
+
+# Binary and Cache files.
+__pycache__/
+*.py[cod]
