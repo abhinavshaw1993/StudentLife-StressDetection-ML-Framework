@@ -5,6 +5,7 @@ import yaml
 import sklearn.linear_model as linear_model
 import sklearn.ensemble as ensemble
 import sklearn.svm as svm
+import numpy as np
 
 
 class ExperimentBase:
@@ -43,6 +44,24 @@ class ExperimentBase:
             model_configs = yaml.load(ymlfile)
 
         return model_configs
+
+    @staticmethod
+    def generate_baseline(true_y):
+        """
+        Generate Baseline accuracy using most label etc.
+        """
+
+        # Most Freq. Accuracy.
+        counts = np.bincount(true_y.astype(int))
+        most_freq = np.max(counts)
+        most_freq_label = np.argmax(counts)
+
+        print("----------------------- ")
+        print("----------------------- ")
+        most_freq_accuracy = most_freq / true_y.shape[0] * 1.0
+
+
+        return most_freq_accuracy, most_freq_label
 
     # Non Abstract Methods
 

@@ -29,13 +29,13 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
                                         index_col=0,
                                         header=[0, 1])
 
-                # self.train_data = self.train_data.append(temp_data[:'2013-04-30'])
-                # self.val_data = self.val_data.append(temp_data['2013-05-01':'2013-05-07'])
-                # self.test_data = self.test_data.append(temp_data['2013-05-08':])
+                self.train_data = self.train_data.append(temp_data[:'2013-05-07'])
+                self.val_data = self.val_data.append(temp_data['2013-05-08':'2013-05-14'])
+                self.test_data = self.test_data.append(temp_data['2013-05-15':])
 
-                self.train_data = self.train_data.append(temp_data[:'2013-05-12'])
-                self.val_data = self.val_data.append(temp_data['2013-05-12':'2013-05-15'])
-                self.test_data = self.test_data.append(temp_data['2013-05-16':])
+                # self.train_data = self.train_data.append(temp_data[:'2013-05-12'])
+                # self.val_data = self.val_data.append(temp_data['2013-05-12':'2013-05-15'])
+                # self.test_data = self.test_data.append(temp_data['2013-05-16':])
 
         # Now that the data has been read let us produce test train split, since it is global generalized we
         self.train_data["set"] = "training_set"
@@ -67,18 +67,21 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
         train_x = transformer.fit_transform(train_x)
         test_x = transformer.fit_transform(test_x)
 
+        # Calculating Label Distribution for train and test.
+
+        train_label_dist = train_y.value_counts()
+        test_label_dist = test_y.value_counts()
+
         if verbose:
             print("train_data_len: {}, val_data_len: {}, test_data_len: {}".format(len(self.train_data),
                                                                                    len(self.val_data),
                                                                                    len(self.test_data)))
             print("train_data indices:\n", self.train_data.index.value_counts())
             print("Is NaN", self.train_data.isnull().any(axis=1).any())
-            # print("val_data indices:\n", self.val_data.index.value_counts())
-            # print("test_data indices:\n", self.test_data.index.value_counts())
             print(self.train_indices)
             print(self.train_data.head(2))
 
-        return train_x, train_y, test_x, test_y
+        return train_x, train_y, test_x, test_y, train_label_dist, test_label_dist
 
     def get_val_splitter(self):
         if self.splitter == "predefined":

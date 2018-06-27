@@ -1,3 +1,11 @@
+LogisticRegression:
+  classifier__penalty: ['l1', 'l2']
+  classifier__C: [5, 2, 1, 0.1, 0.01, 0.001]
+  classifier__class_weight: ['balanced']
+  classifier__random_state: [100]
 RandomForest:
   classifier__n_estimators: [5, 10, 20, 30, 50]
   classifier__max_features: [5, 10, 15, 20 , 30]
+  classifier__criterion : ['gini', 'entropy']
+  classifier__max_depth: [50, 100, 200, 500]
+  classifier__random_state: [100]
