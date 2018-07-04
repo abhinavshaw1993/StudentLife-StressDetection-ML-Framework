@@ -26,7 +26,7 @@ class DataLoaderBase:
         file_list = []
 
         if agg_window == 'd':
-            file_list = [cwd + '\\' + student + '\\one_day_aggregate.csv' for student in student_list]
+            file_list = [cwd + '/' + student + '/one_day_aggregate.csv' for student in student_list]
 
         return file_list
 
