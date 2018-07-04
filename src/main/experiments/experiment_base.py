@@ -17,6 +17,8 @@ class ExperimentBase:
     transformer = str()
     stress_agg = str()
     ml_models = str()
+    previous_stress = True
+
 
     def __init__(self):
         """
@@ -55,11 +57,7 @@ class ExperimentBase:
         counts = np.bincount(true_y.astype(int))
         most_freq = np.max(counts)
         most_freq_label = np.argmax(counts)
-
-        print("----------------------- ")
-        print("----------------------- ")
         most_freq_accuracy = most_freq / true_y.shape[0] * 1.0
-
 
         return most_freq_accuracy, most_freq_label
 
@@ -70,10 +68,12 @@ class ExperimentBase:
 
         if "LogisticRegression" in self.ml_models:
             model_list.append(linear_model.LogisticRegression())
-        if "RandomForest" in self.ml_models:
+        if "RandomForestClassifier" in self.ml_models:
             model_list.append(ensemble.RandomForestClassifier())
         if "SVM" in self.ml_models:
             model_list.append(svm.SVC())
+        if "AdaBoostClassifier" in self.ml_models:
+            model_list.append(ensemble.AdaBoostClassifier())
 
         if len(model_list) == 0:
             raise Exception("Model Config Not Found!! Check Model config for Experiment.")
@@ -93,3 +93,4 @@ class ExperimentBase:
         self.transformer = self.exp_config['transformer_type']
         self.stress_agg = self.exp_config['stress_agg']
         self.ml_models = self.exp_config['ml_models']
+        self.previous_stress = self.exp_config['previous_stress']

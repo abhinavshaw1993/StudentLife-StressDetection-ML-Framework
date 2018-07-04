@@ -1,11 +1,10 @@
 from main.experiments.experiment_base import ExperimentBase
 from main.feature_processing.generalized_global_data_loader import GenralizedGlobalDataLoader
 from sklearn.model_selection import GridSearchCV
-from sklearn.feature_selection import SelectKBest
-from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
-from pathlib import Path, PurePosixPath
+import datetime
+import time
 import pandas as pd
 import sys
 import warnings
@@ -26,86 +25,84 @@ class GeneralizedGlobal(ExperimentBase):
         # initializing some things
         classifiers = []
         param_grid = []
+        result = pd.DataFrame()
+        temp = []
+
+        # Selecting Experiment Type
+        experiment_type = {
+            "predefined": "Global Generalized with Val and Test",
+            "loso": "Global Generalized with Loso",
+            "kfold": "Global Generalized with kfold CV with Randomization"
+        }
+
         model_configs = ExperimentBase.get_model_configurations()
 
         # Getting the model configs and preparing param grid
-
         try:
             classifiers = self.get_ml_models()
         except Exception as e:
             print("Class GeneralizedAggregates: ", e)
 
-        # Preparing the Param Dictionary, where models will be included.
-        for idx, model in enumerate(self.ml_models):
-            try:
-                model_config = model_configs[model]
-            except KeyError:
-                model_config = {}
+        for splitter in self.splitter:
+            exp = GenralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
+                                             transformer_type=self.transformer)
+            train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
+                stress_agg=self.stress_agg, previous_stress=self.previous_stress, verbose=False)
+            # cv = exp.get_val_splitter()
 
-            model_config['classifier'] = [classifiers[idx]]
-            param_grid.append(model_config)
+            # Iterating over all the models to test.
+            for idx, model in enumerate(self.ml_models):
+                try:
+                    model_config = model_configs[model]
+                except KeyError:
+                    model_config = {}
 
-        # Initialize Steps and Pipeline.
-        steps = [
+                classifier = classifiers[idx]
 
-            ('feature_seletor', SelectKBest(k=50)),
-            ('classifier', classifiers[0])
+                clf = GridSearchCV(classifier, param_grid=model_config, cv=exp.get_val_splitter(), n_jobs=-1,
+                                   scoring="accuracy")
+                clf.fit(train_x, train_y)
+                best_estimator = clf.best_estimator_
+                pred_y = best_estimator.predict(test_x)
 
-        ]
+                # Getting the relevant results
+                best_param = clf.best_params_
+                best_score = clf.best_score_
+                accuracy = accuracy_score(test_y, pred_y)
+                f1 = f1_score(test_y, pred_y, average=None)
 
-        exp_pipeline = Pipeline(steps)
+                temp.append(
+                    [model, best_param, best_score, splitter, accuracy, experiment_type[splitter]]
+                )
 
-        if verbose:
-            print(exp_pipeline.get_params().keys())
+                if verbose:
+                    print("best params", best_param)
+                    print("best score", best_score)
+                    print("accuracy: ", accuracy)
+                    print("f1: ", f1)
 
-        # Fetching the required data and splitter.
-        exp = GenralizedGlobalDataLoader(agg_window=self.agg_window, splitter=self.splitter,
-                                         transformer_type=self.transformer)
-        train_x, train_y, test_x, test_y, train_lebel_dist, test_label_dist = exp.get_data(stress_agg=self.stress_agg, verbose=False)
-        splitter = exp.get_val_splitter()
-
-        # GridSearch Initialization.
-        clf = GridSearchCV(exp_pipeline, param_grid=param_grid, cv=splitter, n_jobs=-1)
-        clf.fit(train_x, train_y)
-        best_estimator = clf.best_estimator_
-        pred_y = best_estimator.predict(test_x)
-
-        # Getting the relevant results
-        best_param = clf.best_params_
-        best_score = clf.best_score_
-        accuracy = accuracy_score(test_y, pred_y)
-        f1 = f1_score(test_y, pred_y, average=None)
-        result = pd.DataFrame(clf.cv_results_)
-
+        result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
+                                             "Test_Accuracy", "Experiment_type"])
         # Generating Base line with the Given Data.
         most_freq_accuracy, most_freq_label = ExperimentBase.generate_baseline(test_y)
+        result["Most_freq_accuracy"] = most_freq_accuracy
+        result["Most_Freq_Label"] = most_freq_label
 
         if write:
-
-            s = "Best Params: {} \n\n  Best Accuracy: {} \n\n Best Score: {} \n\n Most Freq BaseLine: {} Most Freq Label: {}".format(
-                best_param,
-                accuracy,
-                best_score,
-                most_freq_accuracy,
-                most_freq_label)
-
-            self.write_output(result, s)
+            self.write_output(result, None)
 
         # Printing results
         if verbose:
-            print("best params", best_param)
-            print("best score", best_score)
-            print("accuracy: ", accuracy)
-            print("f1: ", f1)
             print("Most Freq Baseline:{}, Most Freq Label: {} ".format(most_freq_accuracy, most_freq_label))
-            print("Train Label Distribution:\n {} \n Test Label Distribution: \n{}".format(train_lebel_dist, test_label_dist))
 
     def write_output(self, result_df, string_to_write=None):
-
         # Write the whole data frame in a CSV.
         root = os.path.dirname(sys.modules['__main__'].__file__)
         output_path = root + "/outputs/generalizedExperiment"
-        grid_path = output_path + "/GeneralizedExperimentResultGrid.csv"
+        ts = time.time()
+        st = datetime.datetime.fromtimestamp(ts).strftime('%m_%d_%H_%M')
+
+        grid_path = output_path + "/GeneralizedExperimentResultGrid_" + st + ".csv"
         file_path = output_path + "/GeneralizedExperiment.txt"
         result_df.to_csv(grid_path, index=False, header=True)
 

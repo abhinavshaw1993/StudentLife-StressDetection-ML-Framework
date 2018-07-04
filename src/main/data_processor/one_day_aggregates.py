@@ -28,7 +28,7 @@ freq = 'd'
 # Skipping Student 0, because of bad data.
 print("dir list: ", dir_list)
 
-dir_list = dir_list[30:]
+# dir_list = dir_list[1:2]
 
 print("DirList that will be precessed: ", dir_list)
 converter_dict = {'time': pd.to_datetime}
@@ -39,6 +39,7 @@ for folder in dir_list:
     path = data_dir + "\\" + folder
     os.chdir(path)
     feature_files = feature_cfg['feats_to_use_from_file']
+    # feature_files = feature_files[1:2]
     feature_train_list = []
 
     print("Working on: ", folder)

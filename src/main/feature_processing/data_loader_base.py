@@ -6,6 +6,7 @@ import sys
 class DataLoaderBase:
     __metaclass__ = ABCMeta
 
+
     def __init__(self, agg_window='d', splitter='predefined', transformer_type='minmax'):
         """
         Initialize the different properties for the data loader.
@@ -42,3 +43,15 @@ class DataLoaderBase:
         TO get an iterable for splits of the data.
         """
         pass
+
+    @staticmethod
+    def adjust_stress_values(stress_level):
+        mapping = {
+            1: 2,
+            2: 3,
+            3: 4,
+            4: 1,
+            5: 0
+        }
+        return mapping[stress_level]
+

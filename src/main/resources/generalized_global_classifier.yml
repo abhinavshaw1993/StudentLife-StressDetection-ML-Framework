@@ -1,5 +1,6 @@
 agg_window: 'd'
-splitter: 'predefined'
+splitter: ["predefined", 'loso', 'kfold']
 transformer_type: 'minmax'
 stress_agg: 'min'
-ml_models: ['LogisticRegression', 'RandomForest']
+previous_stress: True
+ml_models: ['LogisticRegression','RandomForestClassifier']
