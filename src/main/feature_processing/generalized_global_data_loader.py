@@ -21,7 +21,7 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
 
 
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
-        # file_list = file_list[:4]
+        file_list = file_list[:4]
 
         self.student_count = len(file_list)
 
