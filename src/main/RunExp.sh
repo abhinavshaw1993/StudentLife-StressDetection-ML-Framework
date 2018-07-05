@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --mem=3000
+#SBATCH --mem=10000
 #SBATCH --job-name=1-node-GridSearchMentalHealth
 #SBATCH --partition=defq
 #SBATCH --output=ClassificationExp-%A.out
