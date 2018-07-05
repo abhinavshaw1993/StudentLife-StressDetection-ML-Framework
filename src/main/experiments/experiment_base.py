@@ -40,6 +40,7 @@ class ExperimentBase:
         Returns Dictionary of hyperparameters.
         """
         root = os.path.dirname(sys.modules['__main__'].__file__)
+        root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
         file_name = root + "/resources/model_configs.yml"
         # Reading from YML file.
         with open(file_name, "r") as ymlfile:
