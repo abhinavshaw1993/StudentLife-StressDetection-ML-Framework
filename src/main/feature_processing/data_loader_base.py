@@ -21,7 +21,7 @@ class DataLoaderBase:
     @staticmethod
     def get_file_list(agg_window):
         root = os.path.dirname(sys.modules['__main__'].__file__)
-        root = "~/Projects/StudentLife-StressDetection-ML-Framework/src/main"
+        root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
 
         print("Root of the Folder:", root)
         cwd = root + "/data/aggregated_data"

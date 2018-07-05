@@ -82,7 +82,7 @@ class ExperimentBase:
 
     def read_configs(self):
         root = os.path.dirname(sys.modules['__main__'].__file__)
-        root = "~/Projects/StudentLife-StressDetection-ML-Framework/src/main"
+        root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
         print("Root of Directory:", root)
         file_name = root + "/resources/generalized_global_classifier.yml"
         # Reading from YML file.
