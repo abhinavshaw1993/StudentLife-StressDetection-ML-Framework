@@ -4,7 +4,7 @@
 #SBATCH --job-name=1-node-GridSearchMentalHealth
 #SBATCH --partition=defq
 #SBATCH --output=ClassificationExp-%A.out
-#SBATCH --error=ClassificationExp-lin_reg-%A.err
+#SBATCH --error=ClassificationExp-%A.err
 #SBATCH --mail-type=ALL
 #SBATCH --cpus-per-task=2
 #SBATCH --mail-user=abhinavshaw@umass.edu
