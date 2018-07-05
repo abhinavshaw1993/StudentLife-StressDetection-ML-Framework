@@ -3,6 +3,7 @@ from main.feature_processing.generalized_global_data_loader import GenralizedGlo
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
+from main.definition import ROOT_DIR
 import datetime
 import time
 import pandas as pd
@@ -88,7 +89,7 @@ class GeneralizedGlobal(ExperimentBase):
                 if verbose:
                     print("best params", best_param)
 
-                print("###############################################")
+                print("#########################################################################")
 
         result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
                                              "Test_Accuracy", "f1_Scores", "Experiment_type"])
@@ -106,8 +107,8 @@ class GeneralizedGlobal(ExperimentBase):
 
     def write_output(self, result_df, string_to_write=None):
         # Write the whole data frame in a CSV.
-        root = os.path.dirname(sys.modules['__main__'].__file__)
-        output_path = root + "/outputs/generalizedExperiment"
+
+        output_path = ROOT_DIR + "/outputs/generalizedExperiment"
         ts = time.time()
         st = datetime.datetime.fromtimestamp(ts).strftime('%m_%d_%H_%M')
 

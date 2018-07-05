@@ -1,12 +1,11 @@
 from abc import ABCMeta, abstractmethod
-import sys
-import os
+from main.definition import ROOT_DIR
 import yaml
 import sklearn.linear_model as linear_model
 import sklearn.ensemble as ensemble
 import sklearn.svm as svm
 import numpy as np
-from definition import ROOT_DIR
+
 
 
 class ExperimentBase:

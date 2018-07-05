@@ -6,13 +6,13 @@
 #SBATCH --output=ClassificationExp-%A.out
 #SBATCH --error=ClassificationExp-%A.err
 #SBATCH --mail-type=ALL
-#SBATCH --cpus-per-task=2
+#SBATCH --ntasks-per-node=12
 #SBATCH --mail-user=abhinavshaw@umass.edu
 
 # Thread Limiting
-export MKL_NUM_THREADS=4
-export OPENBLAS_NUM_THREADS=4
-export OMP_NUM_THREADS=4
+export MKL_NUM_THREADS=12
+export OPENBLAS_NUM_THREADS=12
+export OMP_NUM_THREADS=12
 
 # Log the jobid.
 echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
