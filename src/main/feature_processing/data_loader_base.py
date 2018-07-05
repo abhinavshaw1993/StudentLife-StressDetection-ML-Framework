@@ -1,11 +1,11 @@
 from abc import ABCMeta, abstractmethod
+from definition import ROOT_DIR
 import os
 import sys
 
 
 class DataLoaderBase:
     __metaclass__ = ABCMeta
-
 
     def __init__(self, agg_window='d', splitter='predefined', transformer_type='minmax'):
         """
@@ -20,11 +20,11 @@ class DataLoaderBase:
 
     @staticmethod
     def get_file_list(agg_window):
-        root = os.path.dirname(sys.modules['__main__'].__file__)
-        root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
+        # root = os.path.dirname(sys.modules['__main__'].__file__)
+        # root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
 
-        print("Root of the Folder:", root)
-        cwd = root + "/data/aggregated_data"
+        print("Root of the Folder:", ROOT_DIR)
+        cwd = ROOT_DIR + "/data/aggregated_data"
         student_list = os.listdir(cwd)
         file_list = []
 

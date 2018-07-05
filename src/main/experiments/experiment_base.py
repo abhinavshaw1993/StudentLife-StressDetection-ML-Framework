@@ -6,6 +6,7 @@ import sklearn.linear_model as linear_model
 import sklearn.ensemble as ensemble
 import sklearn.svm as svm
 import numpy as np
+from definition import ROOT_DIR
 
 
 class ExperimentBase:
@@ -18,7 +19,6 @@ class ExperimentBase:
     stress_agg = str()
     ml_models = str()
     previous_stress = True
-
 
     def __init__(self):
         """
@@ -39,9 +39,10 @@ class ExperimentBase:
         """
         Returns Dictionary of hyperparameters.
         """
-        root = os.path.dirname(sys.modules['__main__'].__file__)
-        root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
-        file_name = root + "/resources/model_configs.yml"
+        # root = os.path.dirname(sys.modules['__main__'].__file__)
+        # root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
+        print("Root Dir in reading model Config", ROOT_DIR)
+        file_name = ROOT_DIR + "/resources/model_configs.yml"
         # Reading from YML file.
         with open(file_name, "r") as ymlfile:
             model_configs = yaml.load(ymlfile)
@@ -82,10 +83,11 @@ class ExperimentBase:
         return model_list
 
     def read_configs(self):
-        root = os.path.dirname(sys.modules['__main__'].__file__)
-        root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
-        print("Root of Directory:", root)
-        file_name = root + "/resources/generalized_global_classifier.yml"
+        # root = os.path.dirname(sys.modules['__main__'].__file__)
+        # root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
+        print("Root of Directory:", ROOT_DIR)
+
+        file_name = ROOT_DIR + "/resources/generalized_global_classifier.yml"
         # Reading from YML file.
         with open(file_name, "r") as ymlfile:
             self.exp_config = yaml.load(ymlfile)
