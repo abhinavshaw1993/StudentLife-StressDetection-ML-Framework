@@ -39,9 +39,6 @@ class ExperimentBase:
         """
         Returns Dictionary of hyperparameters.
         """
-        # root = os.path.dirname(sys.modules['__main__'].__file__)
-        # root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
-        print("Root Dir in reading model Config", ROOT_DIR)
         file_name = ROOT_DIR + "/resources/model_configs.yml"
         # Reading from YML file.
         with open(file_name, "r") as ymlfile:
@@ -83,10 +80,6 @@ class ExperimentBase:
         return model_list
 
     def read_configs(self):
-        # root = os.path.dirname(sys.modules['__main__'].__file__)
-        # root = "/home/abhinavshaw/Projects/StudentLife-StressDetection-ML-Framework/src/main"
-        print("Root of Directory:", ROOT_DIR)
-
         file_name = ROOT_DIR + "/resources/generalized_global_classifier.yml"
         # Reading from YML file.
         with open(file_name, "r") as ymlfile:

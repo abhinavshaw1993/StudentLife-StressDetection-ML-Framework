@@ -44,6 +44,9 @@ class GeneralizedGlobal(ExperimentBase):
             print("Class GeneralizedAggregates: ", e)
 
         for splitter in self.splitter:
+
+            print("########## {} split running #########".format(splitter))
+
             exp = GenralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
                                              transformer_type=self.transformer)
             train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
@@ -59,6 +62,8 @@ class GeneralizedGlobal(ExperimentBase):
 
                 classifier = classifiers[idx]
 
+                print("######## Classifier {} running #######".format(model))
+
                 clf = GridSearchCV(classifier, param_grid=model_config, cv=exp.get_val_splitter(), n_jobs=-1,
                                    scoring="accuracy")
                 clf.fit(train_x, train_y)
@@ -72,17 +77,21 @@ class GeneralizedGlobal(ExperimentBase):
                 f1 = f1_score(test_y, pred_y, average=None)
 
                 temp.append(
-                    [model, best_param, best_score, splitter, accuracy, experiment_type[splitter]]
+                    [model, best_param, best_score, splitter, accuracy, f1, experiment_type[splitter]]
                 )
+
+                ######## STD prints ##########
+                print("best score", best_score)
+                print("accuracy: ", accuracy)
+                print("f1: ", f1)
 
                 if verbose:
                     print("best params", best_param)
-                    print("best score", best_score)
-                    print("accuracy: ", accuracy)
-                    print("f1: ", f1)
+
+                print("###############################################")
 
         result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
-                                             "Test_Accuracy", "Experiment_type"])
+                                             "Test_Accuracy", "f1_Scores", "Experiment_type"])
         # Generating Base line with the Given Data.
         most_freq_accuracy, most_freq_label = ExperimentBase.generate_baseline(test_y)
         result["Most_freq_accuracy"] = most_freq_accuracy

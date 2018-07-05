@@ -19,13 +19,12 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
 
     def get_data(self, stress_agg='min', previous_stress=True, verbose=False):
 
-
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
-        file_list = file_list[:4]
+        file_list = file_list[:3]
 
         self.student_count = len(file_list)
 
-        for file in file_list:
+        for idx, file in enumerate(file_list):
 
             if self.aggregation_window == 'd':
                 temp_data = pd.read_csv(file,
@@ -43,14 +42,11 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
                 temp_data.insert(index, "previous_stress_level", previous_stress_levels)
 
             if self.splitter == "predefined":
-                # print("Predefined Split Working")
                 self.train_data = self.train_data.append(temp_data[:'2013-05-01'])
                 self.val_data = self.val_data.append(temp_data['2013-05-01':'2013-05-14'])
                 self.test_data = self.test_data.append(temp_data['2013-05-15':])
             elif self.splitter == "loso" or self.splitter == "kfold":
-                # print("Loso or Kfold Working")
-                if "student 10" in file:
-                    # print("appending test data")
+                if idx == 1:
                     self.test_data = self.test_data.append(temp_data)
                 else:
                     self.train_data = self.train_data.append(temp_data)
