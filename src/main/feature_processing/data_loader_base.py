@@ -21,7 +21,7 @@ class DataLoaderBase:
     @staticmethod
     def get_file_list(agg_window):
         root = os.path.dirname(sys.modules['__main__'].__file__)
-        print("Root of the Folder: ".format(root))
+        print("Root of the Folder: {}".format(root))
         cwd = root + "/data/aggregated_data"
         student_list = os.listdir(cwd)
         file_list = []
