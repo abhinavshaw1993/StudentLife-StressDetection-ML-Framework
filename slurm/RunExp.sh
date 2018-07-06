@@ -2,7 +2,7 @@
 #
 #SBATCH --mem=15000
 #SBATCH --job-name=1-node-GridSearchMentalHealth
-#SBATCH --partition=defq
+#SBATCH --partition=longq
 #SBATCH --output=ClassificationExp-%A.out
 #SBATCH --error=ClassificationExp-%A.err
 #SBATCH --mail-type=ALL
