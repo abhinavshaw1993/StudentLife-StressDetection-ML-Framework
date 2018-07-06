@@ -5,7 +5,8 @@ import sklearn.linear_model as linear_model
 import sklearn.ensemble as ensemble
 import sklearn.svm as svm
 import numpy as np
-
+import time
+import datetime
 
 
 class ExperimentBase:
@@ -18,12 +19,14 @@ class ExperimentBase:
     stress_agg = str()
     ml_models = str()
     previous_stress = True
+    loss = []
 
-    def __init__(self):
+    def __init__(self, config_file):
         """
         Initialize the different properties for the experiment.
         """
-        self.read_configs()
+
+        self.read_configs(config_file)
         self.set_configs()
 
     @abstractmethod
@@ -78,8 +81,9 @@ class ExperimentBase:
 
         return model_list
 
-    def read_configs(self):
-        file_name = ROOT_DIR + "/resources/generalized_global_classifier.yml"
+    def read_configs(self, config_file):
+
+        file_name = ROOT_DIR + "/resources/" + config_file
         # Reading from YML file.
         with open(file_name, "r") as ymlfile:
             self.exp_config = yaml.load(ymlfile)
@@ -91,3 +95,21 @@ class ExperimentBase:
         self.stress_agg = self.exp_config['stress_agg']
         self.ml_models = self.exp_config['ml_models']
         self.previous_stress = self.exp_config['previous_stress']
+        self.loss = self.exp_config['loss']
+
+    @staticmethod
+    def write_output(exp_name, result_df, string_to_write=None):
+        # Write the whole data frame in a CSV.
+
+        output_path = ROOT_DIR + "/outputs/" + exp_name
+        ts = time.time()
+        st = datetime.datetime.fromtimestamp(ts).strftime('%m_%d_%H_%M')
+
+        grid_path = output_path + "/" + exp_name + "ResultGrid_" + st + ".csv"
+        file_path = output_path + "/" + exp_name + ".txt"
+        result_df.to_csv(grid_path, index=False, header=True)
+
+        if string_to_write:
+            f = open(file_path, "w+")
+            f.write(string_to_write)
+            f.close()

@@ -1,0 +1,7 @@
+agg_window: 'd'
+splitter: ["predefined", "loso", "kfold"]
+loss: ["neg_mean_absolute_error" , "neg_mean_squared_error"]
+transformer_type: 'normalizer'
+stress_agg: 'min'
+previous_stress: True
+ml_models: ['LinearRegression', 'RandomForestRegressor', 'SVM']

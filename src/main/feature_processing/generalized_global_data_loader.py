@@ -6,7 +6,7 @@ from sklearn.model_selection import LeaveOneGroupOut
 from sklearn.model_selection import KFold
 
 
-class GenralizedGlobalDataLoader(DataLoaderBase):
+class GeneralizedGlobalDataLoader(DataLoaderBase):
     train_data = pd.DataFrame()
     val_data = pd.DataFrame()
     test_data = pd.DataFrame()
@@ -104,7 +104,7 @@ class GenralizedGlobalDataLoader(DataLoaderBase):
             print(self.train_indices)
             print(self.train_data.head(2))
 
-        return train_x, train_y, test_x, test_y, train_label_dist, test_label_dist
+        return self.train_x, self.train_y, test_x, test_y, train_label_dist, test_label_dist
 
     def get_val_splitter(self):
         if self.splitter == "predefined":

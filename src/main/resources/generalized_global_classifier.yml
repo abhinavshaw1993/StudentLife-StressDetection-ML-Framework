@@ -1,4 +1,5 @@
 agg_window: 'd'
+loss: []
 splitter: ["predefined", "loso", "kfold"]
 transformer_type: 'normalizer'
 stress_agg: 'min'

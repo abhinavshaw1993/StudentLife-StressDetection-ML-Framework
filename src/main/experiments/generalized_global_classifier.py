@@ -1,21 +1,17 @@
 from main.experiments.experiment_base import ExperimentBase
-from main.feature_processing.generalized_global_data_loader import GenralizedGlobalDataLoader
+from main.feature_processing.generalized_global_data_loader import GeneralizedGlobalDataLoader
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
-from main.definition import ROOT_DIR
-import datetime
-import time
 import pandas as pd
 import sys
 import warnings
-import os
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
 
 
-class GeneralizedGlobal(ExperimentBase):
+class GeneralizedGlobalClassifier(ExperimentBase):
     """
     This Class is for generalized global experiments.
     This class will generate all the output files if required.
@@ -42,14 +38,14 @@ class GeneralizedGlobal(ExperimentBase):
         try:
             classifiers = self.get_ml_models()
         except Exception as e:
-            print("Class GeneralizedAggregates: ", e)
+            print("No ML models Specified:", e)
 
         for splitter in self.splitter:
 
             print("########## {} split running #########".format(splitter))
 
-            exp = GenralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
-                                             transformer_type=self.transformer)
+            exp = GeneralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
+                                              transformer_type=self.transformer)
             train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
                 stress_agg=self.stress_agg, previous_stress=self.previous_stress, verbose=False)
             # cv = exp.get_val_splitter()
@@ -99,24 +95,9 @@ class GeneralizedGlobal(ExperimentBase):
         result["Most_Freq_Label"] = most_freq_label
 
         if write:
-            self.write_output(result, None)
+            ExperimentBase.write_output("GeneralizedGlobalClassifier", result, None)
 
         # Printing results
         if verbose:
             print("Most Freq Baseline:{}, Most Freq Label: {} ".format(most_freq_accuracy, most_freq_label))
 
-    def write_output(self, result_df, string_to_write=None):
-        # Write the whole data frame in a CSV.
-
-        output_path = ROOT_DIR + "/outputs/generalizedExperiment"
-        ts = time.time()
-        st = datetime.datetime.fromtimestamp(ts).strftime('%m_%d_%H_%M')
-
-        grid_path = output_path + "/GeneralizedExperimentResultGrid_" + st + ".csv"
-        file_path = output_path + "/GeneralizedExperiment.txt"
-        result_df.to_csv(grid_path, index=False, header=True)
-
-        if string_to_write:
-            f = open(file_path, "w+")
-            f.write(string_to_write)
-            f.close()
