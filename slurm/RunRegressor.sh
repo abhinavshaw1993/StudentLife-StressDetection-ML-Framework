@@ -3,8 +3,8 @@
 #SBATCH --mem=15000
 #SBATCH --job-name=1-node-GridSearchMentalHealth
 #SBATCH --partition=longq
-#SBATCH --output=ClassificationExp-%A.out
-#SBATCH --error=ClassificationExp-%A.err
+#SBATCH --output=RegressionExp-%A.out
+#SBATCH --error=RegressionExp-%A.err
 #SBATCH --mail-type=ALL
 #SBATCH --nodes=3
 #SBATCH --ntasks-per-node=12
@@ -20,4 +20,4 @@ echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
 # Chage Dir to SRC.
 cd ~/Projects/StudentLife-StressDetection-ML-Framework/src/main
-PYTHONPATH=../ python run_classfier.py
+PYTHONPATH=../ python run_regressor.py
