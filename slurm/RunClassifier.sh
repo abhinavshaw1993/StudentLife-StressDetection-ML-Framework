@@ -20,4 +20,4 @@ echo $SLURM_JOBID - `hostname` >> ~/slurm-jobs.txt
 
 # Chage Dir to SRC.
 cd ~/Projects/StudentLife-StressDetection-ML-Framework/src/main
-PYTHONPATH=../ python run_classfier.py
+PYTHONPATH=../ python run_classifier.py
