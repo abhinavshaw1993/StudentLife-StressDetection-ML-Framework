@@ -13,7 +13,6 @@ import warnings
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
 
-
 class GeneralizedGlobalClassifier(ExperimentBase):
     """
     This Class is for generalized global experiments.
@@ -109,8 +108,8 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                                                                                         weighted_recall))
                 print("")
                 print("micro_precision: {}   macro_precision: {}  weigthed_precision: {}".format(micro_precision,
-                                                                                        macro_precision,
-                                                                                        weighted_precision))
+                                                                                                 macro_precision,
+                                                                                                 weighted_precision))
                 print("")
                 print("############################### Confusion Matrix ############################")
                 print(confusion)
@@ -121,7 +120,9 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                 print("#################################################################################")
 
         result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
-                                             "Test_Accuracy", "f1_Scores", "Recall", "Precision", "Confusion",
+                                             "Test_Accuracy", "Micro_f1", "Macro_f1", "Weighted_f1", "Micro_recall",
+                                             "Macro_recall", "Weighted_recall", "Micro_precision",
+                                             "Macro_precision", "Weighted_precision", "Confusion",
                                              "Experiment_Type"])
 
         # Generating Base line with the Given Data.

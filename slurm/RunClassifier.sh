@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --mem=15000
-#SBATCH --job-name=1-node-GridSearchMentalHealth
+#SBATCH --job-name=3-node-GridSearchMentalHealthClassif
 #SBATCH --partition=longq
 #SBATCH --output=ClassificationExp-%A.out
 #SBATCH --error=ClassificationExp-%A.err

@@ -1,0 +1,19 @@
+Model,Model_Config,Best_CrossVal_Score,Splitter,MSE,RMSE,MAE,Experiment_type,Most_freq_accuracy,Most_Freq_Label
+LinearRegression,"{'fit_intercept': True, 'n_jobs': -1}",-0.9538548071578865,predefined,3.0443046228919197,1.744793576011764,1.092494046443331,Global Generalized with Val and Test,0.4666666666666667,2
+LinearRegression,"{'fit_intercept': True, 'n_jobs': -1}",-1.9844293530521848,predefined,3.0443046228919197,1.744793576011764,1.092494046443331,Global Generalized with Val and Test,0.4666666666666667,2
+RandomForestRegressor,"{'criterion': 'mse', 'max_features': 30, 'n_estimators': 20}",-0.7758763227513227,predefined,1.4111072738603987,1.18790036360816,0.9347008547008547,Global Generalized with Val and Test,0.4666666666666667,2
+RandomForestRegressor,"{'criterion': 'mse', 'max_features': 30, 'n_estimators': 20}",-1.1080363399493396,predefined,1.350919330884063,1.1622905535553762,0.9176755189255189,Global Generalized with Val and Test,0.4666666666666667,2
+SVR,{},-0.8489171455295631,predefined,1.536145008596529,1.239413171059808,0.9470858360951269,Global Generalized with Val and Test,0.4666666666666667,2
+SVR,{},-1.3430798857785342,predefined,1.536145008596529,1.239413171059808,0.9470858360951269,Global Generalized with Val and Test,0.4666666666666667,2
+LinearRegression,"{'fit_intercept': True, 'n_jobs': -1}",-150355.2124035106,loso,1.3345475356279126,1.1552261837527371,0.80585794257959,Global Generalized with Loso,0.4666666666666667,2
+LinearRegression,"{'fit_intercept': True, 'n_jobs': -1}",-31693994598246.49,loso,1.3345475356279126,1.1552261837527371,0.80585794257959,Global Generalized with Loso,0.4666666666666667,2
+RandomForestRegressor,"{'criterion': 'mse', 'max_features': 30, 'n_estimators': 20}",-0.7617817233883567,loso,0.6758472222222222,0.8220992775950008,0.6416666666666667,Global Generalized with Loso,0.4666666666666667,2
+RandomForestRegressor,"{'criterion': 'mse', 'max_features': 30, 'n_estimators': 20}",-1.0304357790215468,loso,0.6985590277777778,0.8357984372908206,0.6547222222222222,Global Generalized with Loso,0.4666666666666667,2
+SVR,{},-0.7232804726449142,loso,0.6079861834416775,0.7797346878532964,0.6026094820604199,Global Generalized with Loso,0.4666666666666667,2
+SVR,{},-1.0282582008946048,loso,0.6079861834416775,0.7797346878532964,0.6026094820604199,Global Generalized with Loso,0.4666666666666667,2
+LinearRegression,"{'fit_intercept': True, 'n_jobs': -1}",-191949.290197225,kfold,1.3345475356279126,1.1552261837527371,0.80585794257959,Global Generalized with kfold CV with Randomization,0.4666666666666667,2
+LinearRegression,"{'fit_intercept': True, 'n_jobs': -1}",-51616364154992.9,kfold,1.3345475356279126,1.1552261837527371,0.80585794257959,Global Generalized with kfold CV with Randomization,0.4666666666666667,2
+RandomForestRegressor,"{'criterion': 'mse', 'max_features': 30, 'n_estimators': 20}",-0.7945833333333332,kfold,0.6535000000000001,0.8083934685535257,0.6366666666666667,Global Generalized with kfold CV with Randomization,0.4666666666666667,2
+RandomForestRegressor,"{'criterion': 'mse', 'max_features': 15, 'n_estimators': 20}",-1.0627722628388017,kfold,0.8757777777777779,0.9358299940575627,0.731111111111111,Global Generalized with kfold CV with Randomization,0.4666666666666667,2
+SVR,{},-0.7225073042806863,kfold,0.6079861834416775,0.7797346878532964,0.6026094820604199,Global Generalized with kfold CV with Randomization,0.4666666666666667,2
+SVR,{},-1.026098590397887,kfold,0.6079861834416775,0.7797346878532964,0.6026094820604199,Global Generalized with kfold CV with Randomization,0.4666666666666667,2
