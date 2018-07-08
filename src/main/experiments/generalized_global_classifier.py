@@ -3,6 +3,9 @@ from main.feature_processing.generalized_global_data_loader import GeneralizedGl
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import f1_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import confusion_matrix
 import pandas as pd
 import sys
 import warnings
@@ -21,8 +24,6 @@ class GeneralizedGlobalClassifier(ExperimentBase):
 
         # initializing some things
         classifiers = []
-        param_grid = []
-        result = pd.DataFrame()
         temp = []
 
         # Selecting Experiment Type
@@ -71,24 +72,58 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                 best_param = clf.best_params_
                 best_score = clf.best_score_
                 accuracy = accuracy_score(test_y, pred_y)
-                f1 = f1_score(test_y, pred_y, average=None)
+
+                # f1 scores.
+                micro_f1 = f1_score(test_y, pred_y, average="micro")
+                macro_f1 = f1_score(test_y, pred_y, average="macro")
+                weighted_f1 = f1_score(test_y, pred_y, average="weighted")
+
+                # recall
+                micro_recall = recall_score(test_y, pred_y, average="micro")
+                macro_recall = recall_score(test_y, pred_y, average="macro")
+                weighted_recall = recall_score(test_y, pred_y, average="weighted")
+
+                # Precision.
+                micro_precision = precision_score(test_y, pred_y, average='micro')
+                macro_precision = precision_score(test_y, pred_y, average='macro')
+                weighted_precision = precision_score(test_y, pred_y, average='weighted')
+
+                confusion = confusion_matrix(test_y, pred_y)
 
                 temp.append(
-                    [model, best_param, best_score, splitter, accuracy, f1, experiment_type[splitter]]
+                    [model, best_param, best_score, splitter, accuracy, micro_f1, macro_f1, weighted_f1,
+                     micro_recall, macro_recall, weighted_recall, micro_precision, macro_precision,
+                     weighted_precision, confusion, experiment_type[splitter]]
                 )
 
                 ######## STD prints ##########
                 print("best score", best_score)
                 print("accuracy: ", accuracy)
-                print("f1: ", f1)
-
+                print("")
+                print("micro_f1: {}   macro_f1: {}  weigthed_f1: {}".format(micro_f1,
+                                                                            macro_f1,
+                                                                            weighted_f1))
+                print("")
+                print("micro_recall: {}   macro_recall: {}  weigthed_recall: {}".format(micro_recall,
+                                                                                        macro_recall,
+                                                                                        weighted_recall))
+                print("")
+                print("micro_precision: {}   macro_precision: {}  weigthed_precision: {}".format(micro_precision,
+                                                                                        macro_precision,
+                                                                                        weighted_precision))
+                print("")
+                print("#################### Confusion Matrix ##################")
+                print(confusion)
+                print("")
                 if verbose:
                     print("best params", best_param)
 
                 print("#########################################################################")
 
         result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
-                                             "Test_Accuracy", "f1_Scores", "Experiment_type"])
+                                             "Test_Accuracy", "f1_Scores", "Recall", "Precision", "Confusion",
+                                             "Experiment_Type"])
+
         # Generating Base line with the Given Data.
         most_freq_accuracy, most_freq_label = ExperimentBase.generate_baseline(test_y)
         result["Most_freq_accuracy"] = most_freq_accuracy
@@ -100,4 +135,3 @@ class GeneralizedGlobalClassifier(ExperimentBase):
         # Printing results
         if verbose:
             print("Most Freq Baseline:{}, Most Freq Label: {} ".format(most_freq_accuracy, most_freq_label))
-
