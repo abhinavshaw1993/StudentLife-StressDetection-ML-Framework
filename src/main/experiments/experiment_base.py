@@ -67,6 +67,7 @@ class ExperimentBase:
     def get_ml_models(self):
         model_list = []
 
+        # Classifiers
         if "LogisticRegression" in self.ml_models:
             model_list.append(linear_model.LogisticRegression())
         if "RandomForestClassifier" in self.ml_models:
@@ -76,6 +77,15 @@ class ExperimentBase:
         if "AdaBoostClassifier" in self.ml_models:
             model_list.append(ensemble.AdaBoostClassifier())
 
+        # Regression
+        if "LinearRegression" in self.ml_models:
+            model_list.append(linear_model.LinearRegression())
+        if "RandomForestRegressor" in self.ml_models:
+            model_list.append(ensemble.RandomForestRegressor())
+        if "SVR" in self.ml_models:
+            model_list.append(svm.SVR())
+
+        # Raise Error if no model Selected.
         if len(model_list) == 0:
             raise Exception("Model Config Not Found!! Check Model config for Experiment.")
 
