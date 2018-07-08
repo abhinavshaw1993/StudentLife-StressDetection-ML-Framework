@@ -43,7 +43,7 @@ class GeneralizedGlobalClassifier(ExperimentBase):
 
         for splitter in self.splitter:
 
-            print("########## {} split running #########".format(splitter))
+            print("############################## {} split running #############################".format(splitter))
 
             exp = GeneralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
                                               transformer_type=self.transformer)
@@ -60,7 +60,7 @@ class GeneralizedGlobalClassifier(ExperimentBase):
 
                 classifier = classifiers[idx]
 
-                print("######## Classifier {} running #######".format(model))
+                print("######################### Classifier {} running #######################".format(model))
 
                 clf = GridSearchCV(classifier, param_grid=model_config, cv=exp.get_val_splitter(), n_jobs=-1,
                                    scoring="accuracy")
@@ -112,13 +112,13 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                                                                                         macro_precision,
                                                                                         weighted_precision))
                 print("")
-                print("#################### Confusion Matrix ##################")
+                print("############################### Confusion Matrix ############################")
                 print(confusion)
                 print("")
                 if verbose:
                     print("best params", best_param)
 
-                print("#########################################################################")
+                print("#################################################################################")
 
         result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
                                              "Test_Accuracy", "f1_Scores", "Recall", "Precision", "Confusion",

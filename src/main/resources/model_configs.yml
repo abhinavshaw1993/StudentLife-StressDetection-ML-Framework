@@ -35,4 +35,8 @@ RandomForestRegressor:
   n_estimators: [20]
   criterion: ['mse']
   max_features: [15, 30]
+SVR:
+  C: [1, 0.5]
+  epsilon: [0.1, 0.5, 1]
+  kernel: ['rbf']
 
