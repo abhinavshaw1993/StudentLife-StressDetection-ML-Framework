@@ -32,7 +32,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                                         header=[0, 1])
 
             if previous_stress:
-                # Modelling prevoius stress level to the data frame
+                # Modelling previous stress level to the data frame
                 previous_stress_levels = temp_data.loc[:, ("stress_level", stress_agg)]
                 previous_stress_levels_len = len(previous_stress_levels)
                 previous_stress_levels = [2] + list(previous_stress_levels)
@@ -46,7 +46,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                 self.val_data = self.val_data.append(temp_data['2013-05-01':'2013-05-14'])
                 self.test_data = self.test_data.append(temp_data['2013-05-15':])
             elif self.splitter == "loso" or self.splitter == "kfold":
-                if idx == 1:
+                if idx == 1 or ('student 10' in file) or (('student 20' in file) or ('student 20' in file) or ('student 41' in file) and idx != 1):
                     self.test_data = self.test_data.append(temp_data)
                 else:
                     self.train_data = self.train_data.append(temp_data)
@@ -87,7 +87,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         train_label_dist = train_y.value_counts()
         test_label_dist = test_y.value_counts()
 
-        # CHanging Mapping ETC.
+        # Changing mapping to adjusted stress values.
         self.train_x = train_x
         self.train_y = train_y.apply(DataLoaderBase.adjust_stress_values)
         test_y = test_y.apply(DataLoaderBase.adjust_stress_values)

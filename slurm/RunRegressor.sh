@@ -8,6 +8,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --nodes=3
 #SBATCH --ntasks-per-node=12
+#SBATCH --time=5-00:00
 #SBATCH --mail-user=abhinavshaw@umass.edu
 
 # Thread Limiting
