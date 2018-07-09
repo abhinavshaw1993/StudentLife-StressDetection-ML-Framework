@@ -19,6 +19,7 @@ class ExperimentBase:
     stress_agg = str()
     ml_models = str()
     previous_stress = True
+    feature_selection = True
     loss = []
 
     def __init__(self, config_file):
@@ -30,7 +31,7 @@ class ExperimentBase:
         self.set_configs()
 
     @abstractmethod
-    def run_experiment(self, verbose=False):
+    def run_experiment(self, train=True, write=True, verbose=False):
         """
         To run te experiments.
         """
@@ -105,6 +106,7 @@ class ExperimentBase:
         self.stress_agg = self.exp_config['stress_agg']
         self.ml_models = self.exp_config['ml_models']
         self.previous_stress = self.exp_config['previous_stress']
+        self.feature_selection = self.exp_config['feature_selection']
         self.loss = self.exp_config['loss']
 
     @staticmethod

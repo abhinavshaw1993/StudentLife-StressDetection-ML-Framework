@@ -4,6 +4,7 @@ from main.feature_processing.data_loader_base import DataLoaderBase
 from main.feature_processing.transformer import get_transformer
 from sklearn.model_selection import LeaveOneGroupOut
 from sklearn.model_selection import KFold
+from main.feature_processing.feature_selection import select_features
 
 
 class GeneralizedGlobalDataLoader(DataLoaderBase):
@@ -17,7 +18,8 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
     train_x = pd.DataFrame()
     train_y = pd.DataFrame()
 
-    def get_data(self, stress_agg='min', previous_stress=True, verbose=False):
+    def get_data(self, stress_agg='min', previous_stress=True, feature_selection=True,
+                 feature_selection_type='classification', verbose=False):
 
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
         # file_list = file_list[:3]
@@ -46,7 +48,8 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                 self.val_data = self.val_data.append(temp_data['2013-05-01':'2013-05-14'])
                 self.test_data = self.test_data.append(temp_data['2013-05-15':])
             elif self.splitter == "loso" or self.splitter == "kfold":
-                if idx == 1 or ('student 10' in file) or (('student 20' in file) or ('student 20' in file) or ('student 41' in file) and idx != 1):
+                if idx == 1 or ('student 10' in file) or (
+                        ('student 20' in file) or ('student 20' in file) or ('student 41' in file) and idx != 1):
                     self.test_data = self.test_data.append(temp_data)
                 else:
                     self.train_data = self.train_data.append(temp_data)
@@ -88,9 +91,17 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         test_label_dist = test_y.value_counts()
 
         # Changing mapping to adjusted stress values.
-        self.train_x = train_x
-        self.train_y = train_y.apply(DataLoaderBase.adjust_stress_values)
+
+        train_y = train_y.apply(DataLoaderBase.adjust_stress_values)
         test_y = test_y.apply(DataLoaderBase.adjust_stress_values)
+
+        # Selecting Features
+        if feature_selection:
+            train_x, train_y, test_x, test_y = select_features(train_x, train_y, test_x, test_y,
+                                                               type=feature_selection_type, num_features=20)
+
+        self.train_x = train_x
+        self.train_y = train_y
 
         if verbose:
             print("train_data_len: {}, val_data_len: {}, test_data_len: {}".format(len(self.train_data),

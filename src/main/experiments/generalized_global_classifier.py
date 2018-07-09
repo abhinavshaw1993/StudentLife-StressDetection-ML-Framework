@@ -13,13 +13,14 @@ import warnings
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
 
+
 class GeneralizedGlobalClassifier(ExperimentBase):
     """
     This Class is for generalized global experiments.
     This class will generate all the output files if required.
     """
 
-    def run_experiment(self, write=True, verbose=False):
+    def run_experiment(self, train=True, write=True, verbose=False):
 
         # initializing some things
         classifiers = []
@@ -47,8 +48,11 @@ class GeneralizedGlobalClassifier(ExperimentBase):
             exp = GeneralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
                                               transformer_type=self.transformer)
             train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
-                stress_agg=self.stress_agg, previous_stress=self.previous_stress, verbose=False)
-            # cv = exp.get_val_splitter()
+                stress_agg=self.stress_agg, previous_stress=self.previous_stress,
+                feature_selection_type='classification', verbose=False)
+
+            if not train:
+                return
 
             # Iterating over all the models to test.
             for idx, model in enumerate(self.ml_models):
