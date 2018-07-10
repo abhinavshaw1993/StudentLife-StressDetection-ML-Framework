@@ -1,6 +1,6 @@
 agg_window: 'd'
 loss: ["neg_mean_absolute_error" , "neg_mean_squared_error"]
-splitter: ["predefined", "kfold"]
+splitter: ["loso"]
 transformer_type: 'normalizer'
 stress_agg: 'min'
 previous_stress: True
