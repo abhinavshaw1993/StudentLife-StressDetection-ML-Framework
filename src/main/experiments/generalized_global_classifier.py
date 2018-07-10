@@ -100,6 +100,8 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                 )
 
                 ######## STD prints ##########
+                print("Best Params: ", best_param)
+                print()
                 print("best score", best_score)
                 print("accuracy: ", accuracy)
                 print("")
