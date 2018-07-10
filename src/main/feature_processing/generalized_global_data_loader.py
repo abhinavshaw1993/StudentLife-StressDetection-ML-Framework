@@ -80,25 +80,24 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         train_x, train_y = self.train_data.iloc[:, :-3], self.train_data.loc[:, ("stress_level", stress_agg)]
         test_x, test_y = self.test_data.iloc[:, :-3], self.test_data.loc[:, ("stress_level", stress_agg)]
 
-        # Transforming Data by getting custom transformer.
-        transformer = get_transformer(self.transformer_type)
-        train_x = transformer.fit_transform(train_x)
-        test_x = transformer.fit_transform(test_x)
-
         # Calculating Label Distribution for train and test.
-
         train_label_dist = train_y.value_counts()
         test_label_dist = test_y.value_counts()
 
         # Changing mapping to adjusted stress values.
-
         train_y = train_y.apply(DataLoaderBase.adjust_stress_values)
         test_y = test_y.apply(DataLoaderBase.adjust_stress_values)
 
         # Selecting Features
         if feature_selection:
             train_x, train_y, test_x, test_y = select_features(train_x, train_y, test_x, test_y,
-                                                               type=feature_selection_type, num_features=20)
+                                                               selection_type=feature_selection_type, num_features=20,
+                                                               verbose=verbose)
+
+        # Transforming Data by getting custom transformer.
+        transformer = get_transformer(self.transformer_type)
+        train_x = pd.DataFrame(transformer.fit_transform(train_x), columns=train_x.columns)
+        test_x = pd.DataFrame(transformer.fit_transform(test_x), columns=test_x.columns)
 
         self.train_x = train_x
         self.train_y = train_y
@@ -108,12 +107,8 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                                                                                    len(self.val_data),
                                                                                    len(self.test_data)))
             print()
-            print("train_data indices:\n", self.train_data.index.value_counts())
-            print()
             print("Is NaN", self.train_data.isnull().any(axis=1).any())
             print()
-            print(self.train_indices)
-            print(self.train_data.head(2))
 
         return self.train_x, self.train_y, test_x, test_y, train_label_dist, test_label_dist
 

@@ -49,7 +49,7 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                                               transformer_type=self.transformer)
             train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
                 stress_agg=self.stress_agg, previous_stress=self.previous_stress,
-                feature_selection_type='classification', verbose=False)
+                feature_selection_type='classification', verbose=verbose)
 
             if not train:
                 return

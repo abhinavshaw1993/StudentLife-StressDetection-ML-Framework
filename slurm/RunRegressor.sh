@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --mem=15000
+#SBATCH --mem=30000
 #SBATCH --job-name=3-node-GridSearchMentalHealthRegress
 #SBATCH --partition=longq
 #SBATCH --output=RegressionExp-%A.out
