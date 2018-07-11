@@ -6,8 +6,8 @@
 #SBATCH --output=RegressionExp-%A.out
 #SBATCH --error=RegressionExp-%A.err
 #SBATCH --mail-type=ALL
-#SBATCH --nodes=5
-#SBATCH --ntasks-per-node=20
+#SBATCH --nodes=10
+#SBATCH --ntasks-per-node=30
 #SBATCH --time=10-00:00
 #SBATCH --mail-user=abhinavshaw@umass.edu
 
