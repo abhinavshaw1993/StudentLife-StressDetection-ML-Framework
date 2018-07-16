@@ -3,6 +3,6 @@ loss: []
 splitter: ["loso"]
 transformer_type: 'normalizer'
 stress_agg: 'min'
-previous_stress: True
+previous_stress: False
 feature_selection: True
 ml_models: ['LogisticRegression', 'RandomForestClassifier', 'SVM']
