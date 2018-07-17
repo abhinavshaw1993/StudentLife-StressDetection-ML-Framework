@@ -3,6 +3,6 @@ loss: ["neg_mean_absolute_error" , "neg_mean_squared_error"]
 splitter: ["loso"]
 transformer_type: 'normalizer'
 stress_agg: 'min'
-previous_stress: False
+previous_stress: True
 feature_selection: True
 ml_models: ['LinearRegression', 'RandomForestRegressor', 'SVR']
