@@ -39,6 +39,18 @@ class GeneralizedGlobalRegressor(ExperimentBase):
         except Exception as e:
             print("No ML models Specified: ", e)
 
+        # Printing Details of Experiment
+
+        print("#########################################################################################")
+
+        print(
+            "Previous Stress Levels:{} Feature Selection:{} Transformer:{} Splitter(s):{}".format(self.previous_stress,
+                                                                                                  self.feature_selection,
+                                                                                                  self.transformer,
+                                                                                                  self.splitter))
+
+        print("########################################################################################")
+
         for splitter in self.splitter:
 
             print("########## {} split running #########".format(splitter))
@@ -47,7 +59,8 @@ class GeneralizedGlobalRegressor(ExperimentBase):
                                               transformer_type=self.transformer)
 
             train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
-                stress_agg=self.stress_agg, previous_stress=self.previous_stress, feature_selection_type='regression',
+                stress_agg=self.stress_agg, previous_stress=self.previous_stress,
+                feature_selection=self.feature_selection, feature_selection_type='regression',
                 verbose=False)
 
             if not train:
