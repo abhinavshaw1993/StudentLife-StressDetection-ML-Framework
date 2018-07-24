@@ -1,0 +1,61 @@
+############################## loso split running #############################
+######################### Classifier LogisticRegression running #######################
+Best Params:  {'C': 0.05, 'class_weight': 'balanced', 'fit_intercept': True, 'intercept_scaling': True, 'max_iter': 5, 'n_jobs': -1, 'penalty': 'l1', 'random_state': 300, 'tol': 0.0002}
+
+best score 0.49960348929421095
+accuracy:  0.5967741935483871
+
+micro_f1: 0.5967741935483871   macro_f1: 0.14949494949494951  weigthed_f1: 0.44607363962202673
+
+micro_recall: 0.5967741935483871   macro_recall: 0.2  weigthed_recall: 0.5967741935483871
+
+micro_precision: 0.5967741935483871   macro_precision: 0.11935483870967742  weigthed_precision: 0.35613943808532783
+
+############################### Confusion Matrix ############################
+[[  0   0   6   0   0]
+ [  0   0  13   0   0]
+ [  0   0 111   0   0]
+ [  0   0  31   0   0]
+ [  0   0  25   0   0]]
+
+#################################################################################
+######################### Classifier RandomForestClassifier running #######################
+Best Params:  {'class_weight': 'balanced', 'criterion': 'entropy', 'max_depth': 20, 'max_features': 5, 'min_samples_split': 2, 'n_estimators': 100, 'n_jobs': -1, 'random_state': 100}
+
+best score 0.45519429024583663
+accuracy:  0.510752688172043
+
+micro_f1: 0.510752688172043   macro_f1: 0.20335858585858588  weigthed_f1: 0.454411724774628
+
+micro_recall: 0.510752688172043   macro_recall: 0.21265285136252882  weigthed_recall: 0.510752688172043
+
+micro_precision: 0.510752688172043   macro_precision: 0.2113793103448276  weigthed_precision: 0.4178253615127919
+
+############################### Confusion Matrix ############################
+[[ 0  0  6  0  0]
+ [ 1  1 10  0  1]
+ [ 0  2 88 12  9]
+ [ 0  1 23  6  1]
+ [ 0  1 18  6  0]]
+
+#################################################################################
+######################### Classifier SVM running #######################
+Best Params:  {'C': 1, 'class_weight': 'balanced', 'decision_function_shape': 'ovr', 'degree': 2, 'gamma': 0.01, 'kernel': 'rbf', 'max_iter': 150, 'probability': True, 'random_state': 100, 'tol': 0.1}
+
+best score 0.1625693893735131
+accuracy:  0.13440860215053763
+
+micro_f1: 0.13440860215053763   macro_f1: 0.047393364928909956  weigthed_f1: 0.031850379656525506
+
+micro_recall: 0.13440860215053763   macro_recall: 0.2  weigthed_recall: 0.13440860215053763
+
+micro_precision: 0.13440860215053763   macro_precision: 0.026881720430107524  weigthed_precision: 0.018065672332061508
+
+############################### Confusion Matrix ############################
+[[  0   0   0   0   6]
+ [  0   0   0   0  13]
+ [  0   0   0   0 111]
+ [  0   0   0   0  31]
+ [  0   0   0   0  25]]
+
+#################################################################################

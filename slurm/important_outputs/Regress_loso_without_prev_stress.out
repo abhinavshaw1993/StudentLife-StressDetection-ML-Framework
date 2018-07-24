@@ -1,0 +1,43 @@
+########## loso split running #########
+######## Regressor LinearRegression running #######
+######## Loss neg_mean_absolute_error running #######
+Best Params:  {'fit_intercept': True, 'n_jobs': -1}
+
+best score -0.7996477879056012
+mse:  0.7298792332401641
+mae:  0.6350899789633366
+######## Loss neg_mean_squared_error running #######
+Best Params:  {'fit_intercept': True, 'n_jobs': -1}
+
+best score -1.0954958055531665
+mse:  0.7298792332401641
+mae:  0.6350899789633366
+#########################################################################
+######## Regressor RandomForestRegressor running #######
+######## Loss neg_mean_absolute_error running #######
+Best Params:  {'criterion': 'mae', 'max_depth': 20, 'max_features': 5, 'min_samples_split': 5, 'n_estimators': 50, 'n_jobs': -1, 'random_state': 400}
+
+best score -0.7264869151467089
+mse:  0.9186924731182796
+mae:  0.6240860215053764
+######## Loss neg_mean_squared_error running #######
+Best Params:  {'criterion': 'mae', 'max_depth': 20, 'max_features': 5, 'min_samples_split': 5, 'n_estimators': 20, 'n_jobs': -1, 'random_state': 400}
+
+best score -1.0465513481363997
+mse:  0.9152116935483872
+mae:  0.6280913978494623
+#########################################################################
+######## Regressor SVR running #######
+######## Loss neg_mean_absolute_error running #######
+Best Params:  {'C': 0.0001, 'degree': 2, 'epsilon': 1, 'gamma': 0.01, 'kernel': 'rbf', 'max_iter': 150, 'tol': 0.1}
+
+best score -0.673275865228157
+mse:  0.9032258750987792
+mae:  0.5698926953634528
+######## Loss neg_mean_squared_error running #######
+Best Params:  {'C': 0.0001, 'degree': 2, 'epsilon': 1, 'gamma': 1, 'kernel': 'rbf', 'max_iter': 150, 'tol': 0.1}
+
+best score -1.0074118585644103
+mse:  0.8521223479762138
+mae:  0.7688003885087238
+#########################################################################

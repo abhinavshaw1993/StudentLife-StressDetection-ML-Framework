@@ -1,0 +1,46 @@
+#########################################################################################
+Previous Stress Levels:True Feature Selection:True Transformer:normalizer Splitter(s):['loso']
+########################################################################################
+########## loso split running #########
+######## Regressor LinearRegression running #######
+######## Loss neg_mean_absolute_error running #######
+Best Params:  {'fit_intercept': True, 'n_jobs': -1}
+
+best score -0.8082515582942954
+mse:  0.7615456642727885
+mae:  0.6509426023292886
+######## Loss neg_mean_squared_error running #######
+Best Params:  {'fit_intercept': True, 'n_jobs': -1}
+
+best score -1.152320565999759
+mse:  0.7615456642727885
+mae:  0.6509426023292886
+#########################################################################
+######## Regressor RandomForestRegressor running #######
+######## Loss neg_mean_absolute_error running #######
+Best Params:  {'criterion': 'mse', 'max_depth': 20, 'max_features': 20, 'min_samples_split': 7, 'n_estimators': 200, 'n_jobs': -1, 'random_state': 200}
+
+best score -0.483886707713972
+mse:  0.46316914939209924
+mae:  0.43619869170722886
+######## Loss neg_mean_squared_error running #######
+Best Params:  {'criterion': 'mse', 'max_depth': 50, 'max_features': 10, 'min_samples_split': 7, 'n_estimators': 200, 'n_jobs': -1, 'random_state': 200}
+
+best score -0.5511474454918789
+mse:  0.4354593260865589
+mae:  0.43257556191628527
+#########################################################################
+######## Regressor SVR running #######
+######## Loss neg_mean_absolute_error running #######
+Best Params:  {'C': 0.0001, 'degree': 2, 'epsilon': 1, 'gamma': 0.1, 'kernel': 'rbf', 'max_iter': 150, 'tol': 0.1}
+
+best score -0.6843851749988844
+mse:  0.9032245093548003
+mae:  0.5698928369169056
+######## Loss neg_mean_squared_error running #######
+Best Params:  {'C': 2, 'degree': 2, 'epsilon': 1, 'gamma': 1, 'kernel': 'rbf', 'max_iter': 100, 'tol': 0.1}
+
+best score -0.9768614477155585
+mse:  0.7670638520835598
+mae:  0.6292081317237603
+#########################################################################

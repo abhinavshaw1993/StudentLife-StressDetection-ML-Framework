@@ -1,0 +1,125 @@
+#########################################################################################
+Previous Stress Levels:False Feature Selection:True Transformer:normalizer Splitter(s):['predefined', 'kfold']
+########################################################################################
+############################## predefined split running #############################
+######################### Classifier LogisticRegression running #######################
+Best Params:  {'C': 0.1, 'class_weight': 'balanced', 'fit_intercept': True, 'intercept_scaling': True, 'max_iter': 3, 'n_jobs': -1, 'penalty': 'l1', 'random_state': 400, 'tol': 0.1}
+
+best score 0.49603174603174605
+accuracy:  0.3974358974358974
+
+micro_f1: 0.3974358974358974   macro_f1: 0.16804172593646277  weigthed_f1: 0.2808111755480176
+
+micro_recall: 0.3974358974358974   macro_recall: 0.2358974358974359  weigthed_recall: 0.3974358974358974
+
+micro_precision: 0.3974358974358974   macro_precision: 0.13055555555555556  weigthed_precision: 0.2171474358974359
+
+############################### Confusion Matrix ############################
+[[ 0  0  3  6  0]
+ [ 0  0 13  2  0]
+ [ 0  0 55 10  0]
+ [ 0  0 14  7  0]
+ [ 0  0 35 11  0]]
+
+#################################################################################
+######################### Classifier RandomForestClassifier running #######################
+Best Params:  {'class_weight': 'balanced', 'criterion': 'gini', 'max_depth': 20, 'max_features': 20, 'min_samples_split': 3, 'n_estimators': 50, 'n_jobs': -1, 'random_state': 500}
+
+best score 0.5992063492063492
+accuracy:  0.4358974358974359
+
+micro_f1: 0.4358974358974359   macro_f1: 0.22797906180455732  weigthed_f1: 0.38452511709792514
+
+micro_recall: 0.4358974358974359   macro_recall: 0.24509316770186335  weigthed_recall: 0.4358974358974359
+
+micro_precision: 0.4358974358974359   macro_precision: 0.28100079744816586  weigthed_precision: 0.44799845622214046
+
+############################### Confusion Matrix ############################
+[[ 0  0  7  2  0]
+ [ 0  0 15  0  0]
+ [ 1  3 52  7  2]
+ [ 0  0 17  3  1]
+ [ 0  0 23 10 13]]
+
+#################################################################################
+######################### Classifier SVM running #######################
+Best Params:  {'C': 5, 'class_weight': 'balanced', 'decision_function_shape': 'ovr', 'degree': 2, 'gamma': 0.001, 'kernel': 'rbf', 'max_iter': 150, 'probability': True, 'random_state': 100, 'tol': 0.1}
+
+best score 0.17857142857142858
+accuracy:  0.057692307692307696
+
+micro_f1: 0.057692307692307696   macro_f1: 0.02181818181818182  weigthed_f1: 0.006293706293706294
+
+micro_recall: 0.057692307692307696   macro_recall: 0.2  weigthed_recall: 0.057692307692307696
+
+micro_precision: 0.057692307692307696   macro_precision: 0.011538461538461539  weigthed_precision: 0.0033284023668639054
+
+############################### Confusion Matrix ############################
+[[ 9  0  0  0  0]
+ [15  0  0  0  0]
+ [65  0  0  0  0]
+ [21  0  0  0  0]
+ [46  0  0  0  0]]
+
+#################################################################################
+############################## kfold split running #############################
+######################### Classifier LogisticRegression running #######################
+Best Params:  {'C': 5, 'class_weight': 'balanced', 'fit_intercept': True, 'intercept_scaling': True, 'max_iter': 1, 'n_jobs': -1, 'penalty': 'l2', 'random_state': 100, 'tol': 0.1}
+
+best score 0.4972244250594766
+accuracy:  0.5967741935483871
+
+micro_f1: 0.5967741935483871   macro_f1: 0.14949494949494951  weigthed_f1: 0.44607363962202673
+
+micro_recall: 0.5967741935483871   macro_recall: 0.2  weigthed_recall: 0.5967741935483871
+
+micro_precision: 0.5967741935483871   macro_precision: 0.11935483870967742  weigthed_precision: 0.35613943808532783
+
+############################### Confusion Matrix ############################
+[[  0   0   6   0   0]
+ [  0   0  13   0   0]
+ [  0   0 111   0   0]
+ [  0   0  31   0   0]
+ [  0   0  25   0   0]]
+
+#################################################################################
+######################### Classifier RandomForestClassifier running #######################
+Best Params:  {'class_weight': 'balanced', 'criterion': 'gini', 'max_depth': 20, 'max_features': 5, 'min_samples_split': 2, 'n_estimators': 200, 'n_jobs': -1, 'random_state': 200}
+
+best score 0.4282315622521808
+accuracy:  0.510752688172043
+
+micro_f1: 0.510752688172043   macro_f1: 0.18326751499195554  weigthed_f1: 0.44946378103959944
+
+micro_recall: 0.510752688172043   macro_recall: 0.19907003777971521  weigthed_recall: 0.510752688172043
+
+micro_precision: 0.510752688172043   macro_precision: 0.1756338899196042  weigthed_precision: 0.4067668122967662
+
+############################### Confusion Matrix ############################
+[[ 0  0  6  0  0]
+ [ 1  0 12  0  0]
+ [ 0  1 89 10 11]
+ [ 0  1 22  6  2]
+ [ 0  1 18  6  0]]
+
+#################################################################################
+######################### Classifier SVM running #######################
+Best Params:  {'C': 0.001, 'class_weight': 'balanced', 'decision_function_shape': 'ovr', 'degree': 2, 'gamma': 1, 'kernel': 'linear', 'max_iter': 150, 'probability': True, 'random_state': 100, 'tol': 0.1}
+
+best score 0.168913560666138
+accuracy:  0.13440860215053763
+
+micro_f1: 0.13440860215053763   macro_f1: 0.047393364928909956  weigthed_f1: 0.031850379656525506
+
+micro_recall: 0.13440860215053763   macro_recall: 0.2  weigthed_recall: 0.13440860215053763
+
+micro_precision: 0.13440860215053763   macro_precision: 0.026881720430107524  weigthed_precision: 0.018065672332061508
+
+############################### Confusion Matrix ############################
+[[  0   0   0   0   6]
+ [  0   0   0   0  13]
+ [  0   0   0   0 111]
+ [  0   0   0   0  31]
+ [  0   0   0   0  25]]
+
+#################################################################################
