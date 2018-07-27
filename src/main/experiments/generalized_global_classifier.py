@@ -106,9 +106,10 @@ class GeneralizedGlobalClassifier(ExperimentBase):
                 confusion = confusion_matrix(test_y, pred_y)
 
                 temp.append(
-                    [model, best_param, best_score, splitter, accuracy, micro_f1, macro_f1, weighted_f1,
+                    [self.feature_selection, self.previous_stress, splitter, model, best_score, accuracy, micro_f1, macro_f1,
+                     weighted_f1,
                      micro_recall, macro_recall, weighted_recall, micro_precision, macro_precision,
-                     weighted_precision, confusion, experiment_type[splitter]]
+                     weighted_precision, confusion, experiment_type[splitter], best_param]
                 )
 
                 ######## STD prints ##########
@@ -137,11 +138,12 @@ class GeneralizedGlobalClassifier(ExperimentBase):
 
                 print("#################################################################################")
 
-        result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
-                                             "Test_Accuracy", "Micro_f1", "Macro_f1", "Weighted_f1", "Micro_recall",
-                                             "Macro_recall", "Weighted_recall", "Micro_precision",
-                                             "Macro_precision", "Weighted_precision", "Confusion",
-                                             "Experiment_Type"])
+        result = pd.DataFrame(temp,
+                              columns=["Feature_Engineering", "Previous_Stress", "Splitter", "Model",  "Best_CrossVal_Score",
+                                       "Test_Accuracy", "Micro_f1", "Macro_f1", "Weighted_f1", "Micro_recall",
+                                       "Macro_recall", "Weighted_recall", "Micro_precision",
+                                       "Macro_precision", "Weighted_precision", "Confusion",
+                                       "Experiment_Type", "Model_Config"])
 
         # Generating Base line with the Given Data.
         most_freq_accuracy, most_freq_label = ExperimentBase.generate_baseline(test_y)
@@ -149,7 +151,22 @@ class GeneralizedGlobalClassifier(ExperimentBase):
         result["Most_Freq_Label"] = most_freq_label
 
         if write:
-            ExperimentBase.write_output("GeneralizedGlobalClassifier", result, None)
+            file_name = ""
+
+            for spliiter in self.splitter:
+                file_name += "_" + str(spliiter)
+
+            if self.feature_selection:
+                file_name += "_with_feature_selection"
+            else:
+                file_name += "_without_feature_selection"
+
+            if self.previous_stress:
+                file_name += "_with_prev_stress"
+            else:
+                file_name += "_without_prev_stress"
+
+            ExperimentBase.write_output("GeneralizedGlobalClassifier" + file_name, result, None)
 
         # Printing results
         if verbose:

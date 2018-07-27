@@ -1,0 +1,11 @@
+Model,Model_Config,Best_CrossVal_Score,Splitter,Test_Accuracy,Micro_f1,Macro_f1,Weighted_f1,Micro_recall,Macro_recall,Weighted_recall,Micro_precision,Macro_precision,Weighted_precision,Confusion,Experiment_Type,Most_freq_accuracy,Most_Freq_Label
+LogisticRegression,"{'C': 5, 'class_weight': 'balanced', 'fit_intercept': True, 'intercept_scaling': True, 'max_iter': 2, 'n_jobs': -1, 'penalty': 'l1', 'random_state': 400, 'tol': 0.1}",0.8095238095238095,predefined,0.4444444444444444,0.4444444444444444,0.29292929292929293,0.367003367003367,0.4444444444444444,0.39999999999999997,0.4444444444444444,0.4444444444444444,0.4583333333333333,0.6805555555555556,"[[0 1 0]
+ [0 3 0]
+ [0 4 1]]",Global Generalized with Val and Test,0.5555555555555556,3
+RandomForestClassifier,"{'class_weight': 'balanced', 'criterion': 'gini', 'max_depth': 20, 'max_features': 5, 'min_samples_split': 2, 'n_estimators': 50, 'n_jobs': -1, 'random_state': 500}",0.8571428571428571,predefined,0.3333333333333333,0.3333333333333333,0.16666666666666666,0.16666666666666666,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.1111111111111111,0.1111111111111111,"[[0 1 0]
+ [0 3 0]
+ [0 5 0]]",Global Generalized with Val and Test,0.5555555555555556,3
+SVM,"{'C': 5, 'class_weight': 'balanced', 'decision_function_shape': 'ovr', 'degree': 2, 'gamma': 1, 'kernel': 'rbf', 'max_iter': 50, 'probability': True, 'random_state': 100, 'tol': 0.1}",0.47619047619047616,predefined,0.2222222222222222,0.2222222222222222,0.19642857142857145,0.3253968253968254,0.2222222222222222,0.13333333333333333,0.2222222222222222,0.2222222222222222,0.375,0.6111111111111112,"[[0 0 0 1]
+ [0 1 1 1]
+ [4 0 1 0]
+ [0 0 0 0]]",Global Generalized with Val and Test,0.5555555555555556,3
