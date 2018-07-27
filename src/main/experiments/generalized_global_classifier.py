@@ -153,8 +153,8 @@ class GeneralizedGlobalClassifier(ExperimentBase):
         if write:
             file_name = ""
 
-            for spliiter in self.splitter:
-                file_name += "_" + str(spliiter)
+            for splitter in self.splitter:
+                file_name += "_" + str(splitter)
 
             if self.feature_selection:
                 file_name += "_with_feature_selection"

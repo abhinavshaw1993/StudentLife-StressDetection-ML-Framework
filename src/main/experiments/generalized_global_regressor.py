@@ -95,7 +95,8 @@ class GeneralizedGlobalRegressor(ExperimentBase):
                     mse = mean_squared_error(test_y, pred_y)
 
                     temp.append(
-                        [model, best_param, best_score, splitter, mse, math.sqrt(mse), mae, experiment_type[splitter]]
+                        [self.feature_selection, self.previous_stress, splitter, model, loss, best_score,
+                         mse, math.sqrt(mse), mae, experiment_type[splitter], best_param]
                     )
 
                     ######## STD prints ##########
@@ -110,15 +111,31 @@ class GeneralizedGlobalRegressor(ExperimentBase):
 
                 print("#########################################################################")
 
-        result = pd.DataFrame(temp, columns=["Model", "Model_Config", "Best_CrossVal_Score", "Splitter",
-                                             "MSE", "RMSE", "MAE", "Experiment_type"])
+        result = pd.DataFrame(temp, columns=["Feature_Selection", "Previous_Stress", "Splitter", "Model", "Loss",
+                                            "Best_CrossVal_Score",
+                                             "MSE", "RMSE", "MAE", "Experiment_type", "Model_Config"])
         # Generating Base line with the Given Data.
         most_freq_accuracy, most_freq_label = ExperimentBase.generate_baseline(test_y)
         result["Most_freq_accuracy"] = most_freq_accuracy
         result["Most_Freq_Label"] = most_freq_label
 
         if write:
-            ExperimentBase.write_output('GeneralizedGlobalRegressor', result, None)
+            file_name = ""
+
+            for splitter in self.splitter:
+                file_name += "_" + str(splitter)
+
+            if self.feature_selection:
+                file_name += "_with_feature_selection"
+            else:
+                file_name += "_without_feature_selection"
+
+            if self.previous_stress:
+                file_name += "_with_prev_stress"
+            else:
+                file_name += "_without_prev_stress"
+
+            ExperimentBase.write_output('GeneralizedGlobalRegressor' + file_name, result, None)
 
         # Printing results
         if verbose:
