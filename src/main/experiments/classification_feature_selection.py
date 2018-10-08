@@ -160,6 +160,8 @@ class GeneralizedFeatureSelection(ExperimentBase):
                                     "confustion_matrix": confusion_matrix}
                                    )
 
+            metrics.append(metrics.mean(), ignore_index=True)
+
             feature_selection_rankings_pd = pd.DataFrame(feature_selection_rankings, columns=train_x.columns)
             feature_selection_masks_pd = pd.DataFrame(feature_selection_masks, columns=train_x.columns)
 
@@ -169,3 +171,15 @@ class GeneralizedFeatureSelection(ExperimentBase):
             feature_selection_masks_pd.to_csv(path_or_buf=ROOT_DIR + "/outputs/FeatureSelection/masks.csv")
 
             print("AVG accuracy: ", sum(accuracy)/len(accuracy))
+            print("AVG macro F1: ", sum(macro_f1)/ len(macro_f1))
+            print("AVG microF1: ", sum(micro_f1) / len(micro_f1))
+            print("AVG weighted F1: ", sum(weighted_f1) / len(weighted_f1))
+
+            print("AVG macro precision: ", sum(macro_precision) / len(macro_precision))
+            print("AVG micro precision: ", sum(micro_precision) / len(micro_precision))
+            print("AVG weighted precision: ", sum(weighted_precision) / len(weighted_precision))
+
+            print("AVG macro recall: ", sum(macro_recall) / len(macro_recall))
+            print("AVG micro recall: ", sum(micro_recall) / len(micro_recall))
+            print("AVG weighted recall: ", sum(weighted_recall) / len(weighted_recall))
+
