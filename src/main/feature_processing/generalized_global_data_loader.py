@@ -22,7 +22,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                  feature_selection_type='classification', verbose=False):
 
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
-        file_list = file_list[:3]
+        # file_list = file_list[:3]
 
         self.student_count = len(file_list)
 
