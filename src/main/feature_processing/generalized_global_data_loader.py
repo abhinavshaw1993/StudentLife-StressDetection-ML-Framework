@@ -94,6 +94,8 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                                                                selection_type=feature_selection_type, num_features=20,
                                                                verbose=verbose)
 
+        self.students = train_x.iloc[:, 0]
+
         # Transforming Data by getting custom transformer.
         transformer = get_transformer(self.transformer_type)
         train_x = pd.DataFrame(transformer.fit_transform(train_x), columns=train_x.columns)
@@ -116,8 +118,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         if self.splitter == "predefined":
             return self.__get_predefined_splitter()
         elif self.splitter == "loso":
-            loso = LeaveOneGroupOut()
-            return loso.get_n_splits(groups=self.train_data['student_id'])
+            return LeaveOneGroupOut().split(self.train_x, groups=self.students)
         elif self.splitter == 'kfold':
             return KFold(5).get_n_splits(groups=self.train_y)
         else:

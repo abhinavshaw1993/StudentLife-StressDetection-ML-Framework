@@ -1,0 +1,20 @@
+agg_window: 'd'
+loss: []
+splitter: ["loso"]
+transformer_type: 'normalizer'
+stress_agg: 'min'
+previous_stress: True
+feature_selection: False
+ml_models: ['RandomForestClassifier']
+
+##RandomForest configs.
+
+RandomForestClassifier:
+  n_estimators: 100
+  max_features: 15
+  criterion : 'gini'
+  max_depth: 50
+  random_state: 300
+  min_samples_split: 5
+  class_weight: 'balanced'
+  n_jobs: -1
