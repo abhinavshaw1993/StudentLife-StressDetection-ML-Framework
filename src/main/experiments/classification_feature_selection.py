@@ -164,8 +164,8 @@ class GeneralizedFeatureSelection(ExperimentBase):
 
             feature_selection_rankings_pd = pd.DataFrame(feature_selection_rankings, columns=train_x.columns)
             feature_selection_masks_pd = pd.DataFrame(feature_selection_masks, columns=train_x.columns)
-            feature_selection_rankings = feature_selection_rankings.append(feature_selection_rankings.mean())
-            feature_selection_masks = feature_selection_masks.append(feature_selection_masks.mean())
+            feature_selection_rankings_pd = feature_selection_rankings_pd.append(feature_selection_rankings_pd.mean(), ignore_index=True)
+            feature_selection_masks_pd = feature_selection_masks_pd.append(feature_selection_masks_pd.mean(), ignore_index=True)
 
             ########################## writing to csv ##########################
             metrics.to_csv(path_or_buf=ROOT_DIR+"/outputs/FeatureSelection/metrics.csv")
