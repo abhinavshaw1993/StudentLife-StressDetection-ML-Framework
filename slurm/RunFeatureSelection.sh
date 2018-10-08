@@ -2,7 +2,7 @@
 #
 #SBATCH --mem=30000
 #SBATCH --job-name=Grid-Classif
-#SBATCH --partition=shortq
+#SBATCH --partition=defq
 #SBATCH --output=feature_selection-%A.out
 #SBATCH --error=feature_selection-%A.err
 #SBATCH --mail-type=ALL
