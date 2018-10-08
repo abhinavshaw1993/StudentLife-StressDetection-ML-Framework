@@ -10,11 +10,11 @@ ml_models: ['RandomForestClassifier']
 ##RandomForest configs.
 
 RandomForestClassifier:
-  n_estimators: 100
+  n_estimators: 200
   max_features: 15
-  criterion : 'gini'
-  max_depth: 50
-  random_state: 300
-  min_samples_split: 5
-  class_weight: 'balanced'
+  criterion : 'entropy'
+  max_depth: 20
+  random_state: 500
+  min_samples_split:  3
+  class_weight: 'balanced_subsample'
   n_jobs: -1
