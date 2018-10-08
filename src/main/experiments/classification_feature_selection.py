@@ -25,6 +25,7 @@ class GeneralizedFeatureSelection(ExperimentBase):
     def run_experiment(self, train=True, write=True, verbose=False):
 
         # initializing some things
+        accuracy = []
         micro_f1 = []
         macro_f1 = []
         weighted_f1 = []
@@ -123,7 +124,7 @@ class GeneralizedFeatureSelection(ExperimentBase):
                 split_pred_y = random_forest_classifier.predict(split_test_x)
 
                 ############################### Metrics ###############################
-                accuracy = accuracy_score(split_test_y, split_pred_y)
+                accuracy.append(accuracy_score(split_test_y, split_pred_y))
 
                 # f1 scores.
                 micro_f1.append(f1_score(split_test_y, split_pred_y, average="micro"))
