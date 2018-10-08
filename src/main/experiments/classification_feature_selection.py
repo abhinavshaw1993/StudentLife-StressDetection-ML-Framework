@@ -167,3 +167,5 @@ class GeneralizedFeatureSelection(ExperimentBase):
             metrics.to_csv(path_or_buf=ROOT_DIR+"/outputs/FeatureSelection/metrics.csv")
             feature_selection_rankings_pd.to_csv(path_or_buf=ROOT_DIR+"/outputs/FeatureSelection/rankings.csv")
             feature_selection_masks_pd.to_csv(path_or_buf=ROOT_DIR + "/outputs/FeatureSelection/masks.csv")
+
+            print("AVG accuracy: ", sum(accuracy)/len(accuracy))
