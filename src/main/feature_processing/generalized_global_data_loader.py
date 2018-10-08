@@ -89,8 +89,8 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         test_y = test_y.apply(DataLoaderBase.adjust_stress_values)
 
         # bring values to segregated y labels.
-        train_y = train_y.apply(DataLoaderBase.segregate_y_labels)
-        test_y = test_y.apply(DataLoaderBase.segregate_y_labels)
+        train_y = train_y.apply(DataLoaderBase.segregate_y_labels_as_median)
+        test_y = test_y.apply(DataLoaderBase.segregate_y_labels_as_median)
 
         # Selecting Features
         if feature_selection:
