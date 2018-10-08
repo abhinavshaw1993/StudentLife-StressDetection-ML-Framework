@@ -54,3 +54,14 @@ class DataLoaderBase:
         }
         return mapping[stress_level]
 
+    @staticmethod
+    def segregate_y_labels(stress_level):
+        mapping = {
+            0: 0,
+            1: 1,
+            2: 1,
+            3: 1,
+            4: 2
+        }
+
+        return mapping[stress_level]

@@ -22,7 +22,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                  feature_selection_type='classification', verbose=False):
 
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
-        # file_list = file_list[:3]
+        file_list = file_list[:3]
 
         self.student_count = len(file_list)
 
@@ -87,6 +87,10 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         # Changing mapping to adjusted stress values.
         train_y = train_y.apply(DataLoaderBase.adjust_stress_values)
         test_y = test_y.apply(DataLoaderBase.adjust_stress_values)
+
+        # bring values to segregated y labels.
+        train_y = train_y.apply(DataLoaderBase.segregate_y_labels)
+        test_y = test_y.apply(DataLoaderBase.segregate_y_labels)
 
         # Selecting Features
         if feature_selection:
