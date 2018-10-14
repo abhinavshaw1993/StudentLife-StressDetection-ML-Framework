@@ -1,0 +1,41 @@
+agg_window: 'd'
+loss: []
+splitter: ["kfold", "loso"]
+transformer_type: 'normalizer'
+stress_agg: 'min'
+previous_stress: True
+feature_selection: False
+ml_models: ['RandomForestClassifier', 'LogisticRegression', 'SVM']
+truncate_sq: False
+
+## Model Configs for confidence interval.
+RandomForestClassifier:
+  n_estimators: 200
+  max_features: 15
+  criterion : 'entropy'
+  max_depth: 20
+  random_state: 500
+  min_samples_split:  3
+  class_weight: 'balanced_subsample'
+  n_jobs: -1
+LogisticRegression:
+  penalty: 'l1'
+  C: 0.1
+  class_weight: 'balanced'
+  random_state: 400
+  max_iter: 5
+  fit_intercept: True
+  intercept_scaling: True
+  tol: 0.1
+  n_jobs: -1
+SVC:
+  C: 5
+  kernel: 'rbf'
+  gamma: 0.001
+  probability: True
+  tol: 0.1
+  class_weight: 'balanced'
+  max_iter: 150
+  random_state: 100
+  decision_function_shape : 'ovr'
+
