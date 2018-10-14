@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --mem=30000
+#SBATCH --mem=3000
 #SBATCH --job-name=Grid-Classif
 #SBATCH --partition=defq
 #SBATCH --output=feature_selection-%A.out
