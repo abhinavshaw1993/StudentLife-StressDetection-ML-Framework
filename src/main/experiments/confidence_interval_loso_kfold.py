@@ -21,14 +21,7 @@ class ConfidenceIntervalsResult(ExperimentBase):
     """
 
     def run_experiment(self, train=True, write=True, verbose=False):
-        idx = 0;
         results = pd.DataFrame()
-        # Selecting Experiment Type
-        experiment_type = {
-            "predefined": "Global Generalized with Val and Test",
-            "loso": "Global Generalized with Loso",
-            "kfold": "Global Generalized with kfold CV with Randomization"
-        }
 
         feature_tuple = (
             ["sum", "sum", "kurtosis", "mcr", "var", "sum", "previous_stress_level", "poly_b", "poly_c", "poly_b",
