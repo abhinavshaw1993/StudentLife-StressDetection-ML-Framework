@@ -3,7 +3,7 @@ import numpy as np
 from main.feature_processing.data_loader_base import DataLoaderBase
 from main.feature_processing.transformer import get_transformer
 from sklearn.model_selection import LeaveOneGroupOut
-from sklearn.model_selection import KFold
+from sklearn.model_selection import StratifiedKFold
 from main.feature_processing.feature_selection import select_features
 
 
@@ -19,10 +19,12 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
     train_y = pd.DataFrame()
 
     def get_data(self, stress_agg='min', previous_stress=True, feature_selection=True,
-                 feature_selection_type='classification', verbose=False):
+                 feature_selection_type='classification', verbose=False, segragate_by_median=False, truncate_sq=False):
 
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
-        # file_list = file_list[:3]
+
+        if truncate_sq:
+            file_list = file_list[:3]
 
         self.student_count = len(file_list)
 
@@ -88,9 +90,10 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         train_y = train_y.apply(DataLoaderBase.adjust_stress_values)
         test_y = test_y.apply(DataLoaderBase.adjust_stress_values)
 
-        # bring values to segregated y labels.
-        train_y = train_y.apply(DataLoaderBase.segregate_y_labels_as_median)
-        test_y = test_y.apply(DataLoaderBase.segregate_y_labels_as_median)
+        if segragate_by_median:
+            # Segragate by media stress.
+            train_y = train_y.apply(DataLoaderBase.segregate_y_labels_as_median)
+            test_y = test_y.apply(DataLoaderBase.segregate_y_labels_as_median)
 
         # Selecting Features
         if feature_selection:
@@ -124,7 +127,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         elif self.splitter == "loso":
             return LeaveOneGroupOut().split(self.train_x, groups=self.students)
         elif self.splitter == 'kfold':
-            return KFold(5).split(groups=self.train_y)
+            return StratifiedKFold(n_splits=5).split(X=self.train_x, y=self.train_y)
         else:
             return self.__get_predefined_splitter()
 
