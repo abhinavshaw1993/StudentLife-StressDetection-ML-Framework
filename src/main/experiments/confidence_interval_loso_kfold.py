@@ -155,7 +155,7 @@ class ConfidenceIntervalsResult(ExperimentBase):
                         with pd.option_context('display.max_rows', None, 'display.max_columns', None):
                             print(metrics)
 
-                        results = results.append(metrics, ignore_index=True)
+                        results = results.append(metrics.copy(), ignore_index=True)
 
-            ################################ Writing to csv ################################
-            results.to_csv(path_or_buf=ROOT_DIR + "/outputs/ConfidenceInterval/results.csv")
+                        ################################ Writing to csv ################################
+                        results.to_csv(path_or_buf=ROOT_DIR + "/outputs/ConfidenceInterval/results.csv")
