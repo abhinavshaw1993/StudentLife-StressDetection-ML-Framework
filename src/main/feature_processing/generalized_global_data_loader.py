@@ -127,7 +127,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         elif self.splitter == "loso":
             return LeaveOneGroupOut().split(self.train_x, groups=self.students)
         elif self.splitter == 'kfold':
-            return StratifiedKFold(n_splits=5).split(X=self.train_x, y=self.train_y)
+            return StratifiedKFold(shuffle=True, n_splits=5).split(X=self.train_x, y=self.train_y)
         else:
             return self.__get_predefined_splitter()
 
