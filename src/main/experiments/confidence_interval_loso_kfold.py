@@ -56,24 +56,7 @@ class ConfidenceIntervalsResult(ExperimentBase):
             for segragate_by_median in [True]:
 
                 for splitter in self.splitter:
-                    # Initiaziling Metrics lists/
 
-                    accuracy = []
-                    micro_f1 = []
-                    macro_f1 = []
-
-                    # recall
-                    micro_recall = []
-                    macro_recall = []
-
-                    # Precision.
-                    micro_precision = []
-                    macro_precision = []
-
-                    confusion_matrix = []
-
-                    most_freq_accuracy = []
-                    most_freq_label = []
                     print("############################## {} split running #############################".format(splitter))
 
                     exp = GeneralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
@@ -105,6 +88,25 @@ class ConfidenceIntervalsResult(ExperimentBase):
 
                         print("############################## {} classifier running #############################".format(
                             classifier_name))
+
+                        # Initiaziling Metrics lists/
+
+                        accuracy = []
+                        micro_f1 = []
+                        macro_f1 = []
+
+                        # recall
+                        micro_recall = []
+                        macro_recall = []
+
+                        # Precision.
+                        micro_precision = []
+                        macro_precision = []
+
+                        confusion_matrix = []
+
+                        most_freq_accuracy = []
+                        most_freq_label = []
 
                         for train_idx, test_idx in exp.get_val_splitter():
 
@@ -138,18 +140,17 @@ class ConfidenceIntervalsResult(ExperimentBase):
                             most_freq_label.append(mfl)
 
                         metrics = pd.DataFrame({
-                            "segragate_by_median": segragate_by_median,
-                            "previous_stress": self.previous_stress,
-                            "splitter": splitter,
-                            "classifier": classifier_name,
-                            "avg_accuracy": sum(accuracy) / len(accuracy),
-                            "avg_micro_f1": sum(micro_f1) / len(micro_f1),
-                            "avg_macro_f1": sum(macro_f1) / len(macro_f1),
-                            "avg_micro_recall": sum(micro_recall) / len(micro_recall),
-                            "avg_macro_recall": sum(macro_recall) / len(macro_recall),
-                            "avg_micro_precision": sum(micro_precision) / len(micro_precision),
-                            "avg_macro_precision": sum(macro_precision) / len(macro_precision)},
-                            index=[0])
+                            "segragate_by_median": [segragate_by_median],
+                            "previous_stress": [self.previous_stress],
+                            "splitter": [splitter],
+                            "classifier": [classifier_name],
+                            "avg_accuracy": [sum(accuracy) / len(accuracy)],
+                            "avg_micro_f1": [sum(micro_f1) / len(micro_f1)],
+                            "avg_macro_f1": [sum(macro_f1) / len(macro_f1)],
+                            "avg_micro_recall": [sum(micro_recall) / len(micro_recall)],
+                            "avg_macro_recall": [sum(macro_recall) / len(macro_recall)],
+                            "avg_micro_precision": [sum(micro_precision) / len(micro_precision)],
+                            "avg_macro_precision": [sum(macro_precision) / len(macro_precision)]})
 
                         with pd.option_context('display.max_rows', None, 'display.max_columns', None):
                             print(metrics)
