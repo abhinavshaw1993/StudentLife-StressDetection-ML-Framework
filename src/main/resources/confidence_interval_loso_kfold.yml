@@ -10,12 +10,12 @@ truncate_sq: False
 
 ## Model Configs for confidence interval.
 RandomForestClassifier:
-  n_estimators: 200
+  n_estimators: 150
   max_features: 15
-  criterion : 'entropy'
+  criterion : 'gini'
   max_depth: 20
   random_state: 500
-  min_samples_split:  3
+  min_samples_split:  5
   class_weight: 'balanced_subsample'
   n_jobs: -1
 LogisticRegression:
