@@ -22,17 +22,22 @@ class ConfidenceIntervalsResult(ExperimentBase):
 
     def run_experiment(self, train=True, write=True, verbose=False):
         results = pd.DataFrame()
-        exp_count = 10
+        exp_count = 100
 
-        feature_tuple = (
-            ["sum", "sum", "kurtosis", "mcr", "var", "sum", "previous_stress_level", "poly_b", "poly_c", "poly_b",
-             "sum",
-             "median", "linear_m", "sum", "median", "mean", "mcr", "sum", "linear_m", "median"],
-            ["hours_slept", "activity_inference", "activity_inference", "audio_activity_inference", "conv_duration_min",
-             "dark_duration_min", "Unnamed: 103_level_1", "phonelock_duration_min", "conv_duration_min",
-             "dark_duration_min", "phonelock_duration_min", "phonecharge_duration_min", "dark_duration_min",
-             "conv_duration_min", "dark_duration_min", "phonelock_duration_min", "activity_inference", "call_recorded",
-             "phonecharge_duration_min", "phonelock_duration_min"])
+        features =[('previous_stress_level', ''), ('sum', 'hours_slept'),
+ ('sum', 'activity_inference'), ('kurtosis', 'activity_inference'),
+ ('mcr', 'audio_activity_inference'), ('var', 'conv_duration_min'),
+ ('sum', 'dark_duration_min'), ('student_id', 'Unnamed: 1_level_1'),
+ ('poly_b', 'phonelock_duration_min'), ('poly_b', 'dark_duration_min'),
+ ('poly_c', 'conv_duration_min'), ('median', 'phonecharge_duration_min'),
+ ('linear_m', 'dark_duration_min'), ('sum', 'phonelock_duration_min'),
+ ('sum', 'conv_duration_min'), ('median', 'dark_duration_min'),
+ ('mean', 'phonelock_duration_min'), ('mcr', 'activity_inference'),
+ ('sum', 'call_recorded'), ('linear_m', 'phonecharge_duration_min'),
+ ('median', 'phonelock_duration_min'),
+ ('poly_b', 'phonecharge_duration_min'), ('sum', 'sms_instance'),
+ ('linear_m', 'phonelock_duration_min')]
+
 
         print("#########################################################################################")
 
@@ -74,13 +79,21 @@ class ConfidenceIntervalsResult(ExperimentBase):
                     exp = GeneralizedGlobalDataLoader(agg_window=self.agg_window, splitter=splitter,
                                                       transformer_type=self.transformer)
 
-                    train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
-                        stress_agg=self.stress_agg, previous_stress=True,
-                        feature_selection=False, verbose=verbose,
-                        segragate_by_median=segragate_by_median, truncate_sq=self.exp_config["truncate_sq"])
+                    if splitter == "kfold":
+                        ## For Kfold cross val, use LogisticRegression for feature elimination.
+                        train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
+                            stress_agg=self.stress_agg, previous_stress=True,
+                            feature_selection=True, verbose=verbose,
+                            segragate_by_median=segragate_by_median, truncate_sq=self.exp_config["truncate_sq"])
+                    else:
+                        ## Above selected feature otherwise.
+                        train_x, train_y, test_x, test_y, train_label_dist, test_label_dist = exp.get_data(
+                            stress_agg=self.stress_agg, previous_stress=True,
+                            feature_selection=False, verbose=verbose,
+                            segragate_by_median=segragate_by_median, truncate_sq=self.exp_config["truncate_sq"])
 
-                    # Selecting Features.
-                    train_x, test_x = train_x.loc[:, feature_tuple], test_x.loc[:, feature_tuple]
+                        # Selecting Features.
+                        train_x, test_x = train_x[features], test_x[features]
 
                     if not train:
                         return
@@ -94,6 +107,7 @@ class ConfidenceIntervalsResult(ExperimentBase):
                             classifier_name))
 
                         for train_idx, test_idx in exp.get_val_splitter():
+
                             # Preparing splits.
                             split_train_x, split_train_y = train_x.iloc[train_idx], train_y.iloc[train_idx]
                             split_test_x, split_test_y = train_x.iloc[test_idx], train_y.iloc[test_idx]
