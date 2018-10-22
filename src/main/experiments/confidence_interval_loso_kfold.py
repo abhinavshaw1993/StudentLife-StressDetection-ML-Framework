@@ -53,7 +53,7 @@ class ConfidenceIntervalsResult(ExperimentBase):
 
         for i in range(exp_count):
 
-            for segragate_by_median in [True]:
+            for segragate_by_median in [True, False]:
 
                 for splitter in self.splitter:
 
