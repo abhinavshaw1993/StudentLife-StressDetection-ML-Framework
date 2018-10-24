@@ -5,7 +5,7 @@ transformer_type: 'normalizer'
 stress_agg: 'min'
 previous_stress: True
 feature_selection: False
-ml_models: ['RandomForestClassifier', 'LogisticRegression', 'SVM']
+ml_models: ['RandomForestClassifier', 'LogisticRegression']
 truncate_sq: False
 
 ## Model Configs for confidence interval.

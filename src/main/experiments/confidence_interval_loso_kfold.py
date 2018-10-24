@@ -94,14 +94,17 @@ class ConfidenceIntervalsResult(ExperimentBase):
                         accuracy = []
                         micro_f1 = []
                         macro_f1 = []
+                        weighted_f1 = []
 
                         # recall
                         micro_recall = []
                         macro_recall = []
+                        weighted_recall = []
 
                         # Precision.
                         micro_precision = []
                         macro_precision = []
+                        weighted_precission = []
 
                         confusion_matrix = []
 
@@ -124,14 +127,18 @@ class ConfidenceIntervalsResult(ExperimentBase):
                             # f1 scores.
                             micro_f1.append(f1_score(split_test_y, split_pred_y, average="micro"))
                             macro_f1.append(f1_score(split_test_y, split_pred_y, average="macro"))
+                            weighted_f1.append(f1_score(split_test_y, split_pred_y, average="weighted"))
 
                             # recall
                             micro_recall.append(recall_score(split_test_y, split_pred_y, average="micro"))
                             macro_recall.append(recall_score(split_test_y, split_pred_y, average="macro"))
+                            weighted_recall.append(recall_score(split_test_y, split_pred_y, average="weighted"))
 
                             # Precision.
                             micro_precision.append(precision_score(split_test_y, split_pred_y, average='micro'))
                             macro_precision.append(precision_score(split_test_y, split_pred_y, average='macro'))
+                            weighted_precission.append(precision_score(split_test_y, split_pred_y, average="weighted"))
+
                             confusion_matrix.append(cm(y_true=split_test_y, y_pred=split_pred_y))
 
                             # Generating Base line with the Given Data.
@@ -147,10 +154,15 @@ class ConfidenceIntervalsResult(ExperimentBase):
                             "avg_accuracy": [sum(accuracy) / len(accuracy)],
                             "avg_micro_f1": [sum(micro_f1) / len(micro_f1)],
                             "avg_macro_f1": [sum(macro_f1) / len(macro_f1)],
+                            "avg_weighted_f1": [sum(weighted_f1) / len(weighted_f1)],
+                            "avg_micro_precision": [sum(micro_precision) / len(micro_precision)],
+                            "avg_macro_precision": [sum(macro_precision) / len(macro_precision)],
+                            "avg_weighted_precision": [sum(weighted_precission) / len(weighted_precission)],
                             "avg_micro_recall": [sum(micro_recall) / len(micro_recall)],
                             "avg_macro_recall": [sum(macro_recall) / len(macro_recall)],
-                            "avg_micro_precision": [sum(micro_precision) / len(micro_precision)],
-                            "avg_macro_precision": [sum(macro_precision) / len(macro_precision)]})
+                            "avg_weighted_recall": [sum(weighted_recall) / len(weighted_recall)]
+
+                        })
 
                         with pd.option_context('display.max_rows', None, 'display.max_columns', None):
                             print(metrics)

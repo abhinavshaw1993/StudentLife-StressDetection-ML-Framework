@@ -22,6 +22,8 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
                  feature_selection_type='classification', verbose=False, segragate_by_median=False, truncate_sq=False):
 
         file_list = DataLoaderBase.get_file_list(self.aggregation_window)
+        print("Num students for data", len(file_list))
+        print("Student info \n", file_list)
 
         if truncate_sq:
             file_list = file_list[:3]
@@ -78,6 +80,9 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         self.test_data.fillna(method='pad', inplace=True)
         self.test_data.fillna(value=0, inplace=True)
 
+        # Bootstrapping from training data.
+        self.train_data = self.train_data.sample(frac=0.9, replace=True)
+
         # Slicing our t
         train_x, train_y = self.train_data.iloc[:, :-3], self.train_data.loc[:, ("stress_level", stress_agg)]
         test_x, test_y = self.test_data.iloc[:, :-3], self.test_data.loc[:, ("stress_level", stress_agg)]
@@ -127,7 +132,7 @@ class GeneralizedGlobalDataLoader(DataLoaderBase):
         elif self.splitter == "loso":
             return LeaveOneGroupOut().split(self.train_x, groups=self.students)
         elif self.splitter == 'kfold':
-            return StratifiedKFold(shuffle=True, n_splits=5).split(X=self.train_x, y=self.train_y)
+            return StratifiedKFold(shuffle=False, n_splits=5).split(X=self.train_x, y=self.train_y)
         else:
             return self.__get_predefined_splitter()
 
