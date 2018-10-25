@@ -22,7 +22,7 @@ class ConfidenceIntervalsResult(ExperimentBase):
 
     def run_experiment(self, train=True, write=True, verbose=False):
         results = pd.DataFrame()
-        exp_count = 100
+        exp_count = 1000
 
         features =[('previous_stress_level', ''), ('sum', 'hours_slept'),
  ('sum', 'activity_inference'), ('kurtosis', 'activity_inference'),
